@@ -1,0 +1,236 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: formFont;
+    src: url(JejuGothic-Regular.ttf);
+}
+
+svg {
+    display: inline-block;
+}
+
+.container {
+    display: flex;
+    gap: 3rem;
+    flex-direction: row;
+    width: 90%;
+    min-height: 100%;
+    margin: 50px auto;
+    border: 10px solid black;
+}
+
+.accounts{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 70%;
+    background-color: #E0E0E0;
+    text-align: center;
+    border-radius: 8px;
+    font-family: formFont;
+}
+
+.header{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    background-color: #c0c0c0;
+    text-align: left;
+    border-radius: 8px;
+    font-family: formFont;
+    box-shadow: 0px 4px 5px #afaeae;
+
+}
+.summary{
+    min-width: 10rem;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 70%;
+    background-color: #E0E0E0;
+    text-align: center;
+    border-radius: 8px;
+    gap:1em;
+    font-family: formFont;
+    padding-bottom: 30px;
+}
+
+.myAccounts{
+    padding: 20px;
+    font-family: formFont;
+    text-align: center;
+    font-size: 19px;
+}
+.accountList{
+    padding: 10px;
+    font-family: formFont;
+    font-weight: bold;
+    color: #74992E;
+    font-size: 18px;
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.accountList:hover{
+    color: #84b628;
+    transition: 0.7s;
+    cursor: pointer;
+    transform: scale(1.1);
+    
+}
+
+.accountList:not(hover){
+    transition: all 1s;
+}
+.tabs{
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+    gap:1rem;
+}
+
+button {
+  /* Variables */
+  --button_radius: 0.75em;
+  --button_color: #e8e8e8;
+  --button_outline_color: #74992E;
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  border-radius: var(--button_radius);
+  background: var(--button_outline_color);
+}
+
+.button_top {
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid var(--button_outline_color);
+  border-radius: var(--button_radius);
+  padding: 0.75em 1.5em;
+  background: var(--button_color);
+  color: var(--button_outline_color);
+  transform: translateY(-0.2em);
+  transition: transform 0.1s ease;
+}
+
+button:hover .button_top {
+  /* Pull the button upwards when hovered */
+  cursor: pointer;
+  transform: translateY(-0.33em);
+}
+
+button:active .button_top {
+  /* Push the button downwards when pressed */
+  transform: translateY(0);
+}
+
+.desc{
+    display: flex;
+    margin: 0rem 7rem 0rem 4rem;
+    min-width: 10rem;
+    gap:1em;
+    text-decoration: underline;
+    text-underline-position: under;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.creditDisc{
+    margin: 0rem 4rem 0rem 4rem;
+    text-align: right;
+    text-decoration: underline;
+    text-underline-position: under;
+}
+.listOfAccounts{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 94%;
+    height: 60%;
+    background-color: #d1d1d1;
+    text-align: center;
+    border-radius: 8px;
+    font-family: formFont;
+
+}
+option:hover {
+    background-color: #74992E;
+}
+
+input[type="text"]{
+    border-radius: 8px;
+    text-align: center;
+    font-size: 15px;
+    padding-left: 5rem;
+    width: 40%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-family: formFont;
+}
+select {
+    border-radius: 8px;
+    text-align: center;
+    font-size: 15px;
+    padding-left: 5rem;
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-family: formFont;
+  }
+
+
+.tabPanel{
+    display: none;
+}
+.form{
+    padding-bottom: 2rem;
+}
+.accountSum{
+    margin: 1rem 0rem 1rem 2rem;
+    text-align: left;
+}
+
+
+.accountDesc{
+    margin: 1rem 2rem 1rem 2rem;
+    min-width: 10rem;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: space-between;
+
+}
+
+.QuickPoT{
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    padding: 11px 15px;
+    margin-right: 20px;
+    display: inline-block;
+  }
+  a svg {
+    display: inline-block;
+     vertical-align: middle;
+  }
+
+  /* Style the buttons */
+.btn {
+    font-size: 18px;
+  }
+  
+  /* Style the active class, and buttons on mouse-over */
+  .active {
+    background-color: #597e0e;
+    color: white;
+  }
