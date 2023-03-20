@@ -1,8 +1,14 @@
-class Customer {
-    // This object was designed incorrectly, I'll look over the design before editing
-    constructor(username,email) {
+import Account from "./Account.js"
+
+export default class Customer {
+    constructor(username,email,password) {
         this.username = username;
         this.email = email;
-        this.accounts = [];
+        this.primaryAccount = new Account(password);
     }
+
+    // Getter Method(s)
+    getPrimaryAccount() { return this.primaryAccount; }
+    getUsername() { return this.username; }
+    getEmail() { return this.email; }
 }
