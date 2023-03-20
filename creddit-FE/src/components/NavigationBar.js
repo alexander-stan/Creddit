@@ -1,36 +1,57 @@
-import * as React from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
-import styled from 'styled-components';
+import * as React from "react";
+import { Nav, Navbar } from "react-bootstrap";
+import styled from "styled-components";
 
 const Styles = styled.div`
-  .navbar { background-color: #293225; }
-  a, .navbar-nav, .navbar-light .nav-link {
+  .navbar {
+    background-color: #293225;
+    padding-left: 100px;
+    padding-right: 125px;
+  }
+  a:hover {
+    /* add underline/opacity to :hover state */
+    text-decoration: underline;
+    opacity: 0.7;
+  }
+  a,
+  .navbar-nav,
+  .navbar-light .nav-link {
     color: white;
-    &:hover { opacity: 0.7}
+    font-size: 1.15em;
   }
   .navbar-brand {
     font-size: 1.4em;
     color: white;
-    &:hover { opacity: 0.7 }
   }
-  .form-center {
-    position: absolute !important;
-    left: 25%;
-    right: 25%;
+  .ml-auto {
+    margin-left: auto !important;
+    display: flex;
+    align-items: center;
+  }
+  .ml-auto > * {
+    margin-right: 18px;
   }
 `;
 
 export const NavigationBar = () => (
   <Styles>
     <Navbar expand="lg">
+      <Navbar.Brand href="/">
+        <div>
+          <img src="logo.jpg"></img>
+        </div>
+      </Navbar.Brand>
+
       <Navbar.Brand href="/">Creddit</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
-          {/* <Nav.Item><Nav.Link href="/dashboard">Dashboard</Nav.Link></Nav.Item>
-          <Nav.Item><Nav.Link href="/settings">Settings</Nav.Link></Nav.Item> */}
-        </Nav>
-      </Navbar.Collapse>
+
+      <Nav className="ml-auto">
+        <Nav.Item>
+          <Nav.Link href="/log-in">Log in</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/get-started">Get Started</Nav.Link>
+        </Nav.Item>
+      </Nav>
     </Navbar>
   </Styles>
-)
+);
