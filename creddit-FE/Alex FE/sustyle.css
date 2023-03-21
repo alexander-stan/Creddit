@@ -55,6 +55,7 @@ html {
 }
 
 .Sign-up-form{
+    min-width: 30rem;
     align-self: center;
     width: 30%;
     margin: 1rem 0;
