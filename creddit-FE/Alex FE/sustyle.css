@@ -39,20 +39,24 @@
     border: none;
 
 }
-
-.main{
-    height: 100%;
-    width: 100%;
-    background-image: url(bg_place_holder.jpg);
-    background-position: center;
+html { 
+    background: url(bg_place_holder.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
+}
+  
+.main{
     display: flex;
+    background-repeat: no-repeat;
     flex-direction: column;
+    background-size: 100% 100%;
 }
 
 .Sign-up-form{
     align-self: center;
-    width: 600px;
+    width: 30%;
     margin: 1rem 0;
     background-color: #E0E0E0;
     text-align: center;
@@ -78,6 +82,9 @@ input[type="text"]{
     padding-bottom: 15px;
     border-radius: 8px;
     border: none;
+}
+button:hover{
+    background-color:#95cf2a;
 }
 input[type="button"]:hover{
     background-color:#95cf2a;
@@ -123,7 +130,7 @@ form input[type="text"]{
     font-style: italic;
     font-weight: bold;
     padding: 25px 0px;
-    width: 600px;
+    width: 100%;
     background-color: #a5a4a4;
     text-align: center;
     border-radius: 9px;
