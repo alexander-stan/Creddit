@@ -12,12 +12,7 @@ export default class Bank {
     }
 
     transfer(card1,card2,amount) {
-        if (card1.getBalance() >= amount) {
-            card1.setBalance(card1.getBalance() - amount);
-            card2.setBalance(card2.getBalance() + amount);
-        } else {
-            return false;
-        }
+
     }
 
     deposit(card,amount) {
@@ -76,10 +71,6 @@ export default class Bank {
         }
 
         return card;
-    }
-
-    payBill() {
-
     }
 
     // This function will load existing customers from the DB

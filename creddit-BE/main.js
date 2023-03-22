@@ -7,18 +7,6 @@ import CreditCard from "./CreditCard.js"
 // Initiate Bank
 let bank = new Bank();
 
-let C1 = bank.createCustomer("Hadi","hadi@example.com","Password123");
-console.log(C1);
-let A1 = C1.getPrimaryAccount();
-console.log(A1);
-let DB1 = A1.getAccessCard();
-console.log(DB1);
-console.log(DB1.constructor.name);
-console.log(typeof(DB1));
-
-A1.addCard(new CreditCard(1000,0.04));
-console.log(A1);
-
 runTestCases();
 
 // Test Case Function
@@ -35,20 +23,38 @@ export default function runTestCases() {
     let d_card = new DebitCard(1000);
     let c_card = new CreditCard(1000,0.05);
     let account = new Account("password123",d_card);
-    let customer = new Customer("Mike Test","mike@test.com",account);
+    let customer = new Customer("Mike Test","mike@example.com",account);
 
     // Create Credit Card
-    currCase++; try { assert(bank.createCreditCard(customer, 1500, 0.05) == null); } catch (error) { failedCases++,console.error(currCase,"1st PARAM not a Valid Account"); }
-    currCase++; try { assert(bank.createCreditCard(account, "1500", 0.05) == null); } catch (error) { failedCases++,console.error(currCase,"2nd PARAM not a Number"); }
-    currCase++; try { assert(bank.createCreditCard(account, 0, 0.05) == null); } catch (error) { failedCases++,console.error(currCase,"2nd PARAM not greater than 0"); }
-    currCase++; try { assert(bank.createCreditCard(account, 1500, -0.05) == null); } catch (error) { failedCases++,console.error(currCase,"3rd PARAM not between 0 and 1 exclusive"); }
-    currCase++; try { assert(typeof(bank.createCreditCard(account, 1500, 0.05)) == 'object'); } catch (error) { failedCases++,console.error(currCase,"VALID CreditCard not created properly"); }
+    currCase++; try { 
+        assert(bank.createCreditCard(customer, 1500, 0.05) == null); 
+    } catch (error) { failedCases++,console.error(currCase,"1st PARAM not a Valid Account"); }
+    currCase++; try { 
+        assert(bank.createCreditCard(account, "1500", 0.05) == null); 
+    } catch (error) { failedCases++,console.error(currCase,"2nd PARAM not a Number"); }
+    currCase++; try { 
+        assert(bank.createCreditCard(account, 0, 0.05) == null); 
+    } catch (error) { failedCases++,console.error(currCase,"2nd PARAM not greater than 0"); }
+    currCase++; try { 
+        assert(bank.createCreditCard(account, 1500, -0.05) == null); 
+    } catch (error) { failedCases++,console.error(currCase,"3rd PARAM not between 0 and 1 exclusive"); }
+    currCase++; try { 
+        assert(typeof(bank.createCreditCard(account, 1500, 0.05)) == 'object'); 
+    } catch (error) { failedCases++,console.error(currCase,"VALID CreditCard not created properly"); }
 
     // Create Debit Card
-    currCase++; try { assert(bank.createDebitCard(customer, 1500) == null); } catch (error) { failedCases++,console.error(currCase,"1st PARAM not a Valid Account"); }
-    currCase++; try { assert(bank.createDebitCard(account, "1500") == null); } catch (error) { failedCases++,console.error(currCase,"2nd PARAM not a Number"); }
-    currCase++; try { assert(bank.createDebitCard(account, 0) == null); } catch (error) { failedCases++,console.error(currCase,"2nd PARAM not greater than 0"); }
-    currCase++; try { assert(typeof(bank.createDebitCard(account, 1500)) == 'object'); } catch (error) { failedCases++,console.error(currCase,"VALID DebitCard not created properly"); }
+    currCase++; try { 
+        assert(bank.createDebitCard(customer, 1500) == null); 
+    } catch (error) { failedCases++,console.error(currCase,"1st PARAM not a Valid Account"); }
+    currCase++; try { 
+        assert(bank.createDebitCard(account, "1500") == null); 
+    } catch (error) { failedCases++,console.error(currCase,"2nd PARAM not a Number"); }
+    currCase++; try { 
+        assert(bank.createDebitCard(account, 0) == null); 
+    } catch (error) { failedCases++,console.error(currCase,"2nd PARAM not greater than 0"); }
+    currCase++; try { 
+        assert(typeof(bank.createDebitCard(account, 1500)) == 'object'); 
+    } catch (error) { failedCases++,console.error(currCase,"VALID DebitCard not created properly"); }
 
     // Deposit (Debit)
     d_card.setBalance(0);
@@ -116,6 +122,19 @@ export default function runTestCases() {
     // Transfer
     d_card.setBalance(500); // Set Balance
     c_card.setBalance(500); // Set Balance
+
+    currCase++; try {
+        assert(bank.transfer(d_card,c_card,200) == true);
+    } catch (error) { failedCases++,console.error(currCase,"Valid transfer between Credit and Debit failed"); }
+
+
+    currCase++; try {
+        assert(bank.transfer(c_card,d_card,200) == true);
+    } catch (error) { failedCases++,console.error(currCase,"Valid transfer between Debit and Credit failed"); }
+
+    currCase++; try {
+        assert(bank.transfer(d_card,c_card,400) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Transfer past available balance"); }
 
     console.log("Test Cases Passed: ",(currCase-failedCases),"/",currCase);
 }

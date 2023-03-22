@@ -13,7 +13,6 @@ export default class Account {
     // Getter Method(s)
     getIdentifier() { return this.identifier; }
     getAccessCard() { return this.access_card; }
-    getCustomer() { return this.customer; }
     getPassword() { return this.password; }
     getCards() { return this.cards; }
 
