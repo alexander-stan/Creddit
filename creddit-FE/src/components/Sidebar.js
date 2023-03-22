@@ -7,11 +7,9 @@ const SidebarContainer = styled.div`
   height: 100%;
   width: auto; /* Set the width of the sidebar */
   z-index: 1; /* Stay on top of everything */
-  top: 8em;
   left: 0;
   background-color: #293225;
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 15px;
   padding-left: 115px;
 `;
 
@@ -43,8 +41,13 @@ const SidebarItem = styled.div`
 const Sidebar = () => {
   const location = useLocation();
   const items = [
-    { name: "Dashboard", path: "/dashboard" },
+    { name: "Dashboard", path: "/" },
+    { name: "Accounts", path: "/accounts"},
+    { name: "Pay Bills", path: "/pay-bills"},
+    { name: "Transfers", path: "/transfers"},
+    { name: "Add Accounts", path: "/add-accounts"},
     { name: "Settings", path: "/settings" },
+
   ];
 
   return (
