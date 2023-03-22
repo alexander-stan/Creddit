@@ -3,6 +3,17 @@ import { Nav, Navbar } from "react-bootstrap";
 import styled from "styled-components";
 
 const Styles = styled.div`
+  img {
+    max-width: 150px;
+    max-height: 150px;
+  }
+
+  .text {
+    color: white;
+    font-size: 20px;
+    text-align: left;
+    padding-top: 32px;
+  }
   .navbar {
     background-color: #293225;
     padding-left: 100px;
@@ -38,7 +49,7 @@ export const NavigationBar = () => (
     <Navbar expand="lg">
       <Navbar.Brand href="/">
         <div>
-          <img src="logo.jpg"></img>
+          <img src="logo.jpg" alt="Creddit logo"></img>
         </div>
       </Navbar.Brand>
 

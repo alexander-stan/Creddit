@@ -5,12 +5,13 @@ const GridWrapper = styled.div`
   display: grid;
   grid-gap: 10px;
   margin-top: 2em;
-  margin-left: 8em;
+  margin-left: 351.708px;
   margin-right: 6em;
+  padding-top: 15px;
 `;
 
-export const Dashboard = () => (
+export const Settings = () => (
     <GridWrapper>
-        <p>Welcome back!</p>
+        <p>Settings</p>
     </GridWrapper>
 )
