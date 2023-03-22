@@ -77,11 +77,11 @@ export default class Bank {
             return null;
         }
         
-        if (typeof(transaction_limit) != 'number' || credit_limit <= 0) {
+        if (typeof(transaction_limit) != 'number' || transaction_limit <= 0) {
             return null;
         }
 
-        let card = new DebitCard(credit_limit, interest_rate);
+        let card = new DebitCard(transaction_limit);
         account.addCard(card);
         return card;
     }

@@ -24,18 +24,31 @@ runTestCases();
 // Test Case Function
 export default function runTestCases() {
     let totalCases = 10;
-    let passedCases = 0;
+    let failedCases = 0;
+
+    function assert(condition, message) {
+        if (!condition) {
+            failedCases++;
+            throw new Error(message || "Assertion failed");
+        }
+    }
 
     let card = new DebitCard(1000);
     let account = new Account("password123",card);
     let customer = new Customer("Mike Test","mike@test.com",account);
 
-    // CreateCreditCard
-    console.log("Test Case 1: " + (bank.createCreditCard(customer, 1500, 0.05) == null))
-    console.log("Test Case 1: " + (bank.createCreditCard(account, "1500", 0.05) == null))
-    console.log("Test Case 1: " + (bank.createCreditCard(account, 0, 0.05) == null))
-    console.log("Test Case 1: " + (bank.createCreditCard(account, 1500, -0.05) == null))
-    console.log("Test Case 1: " + (bank.createCreditCard(account, 1500, 0.05) == null))
+    // Create Credit Card
+    console.assert((bank.createCreditCard(customer, 1500, 0.05) == null), "1st PARAM not a Valid Account");
+    console.assert((bank.createCreditCard(account, "1500", 0.05) == null), "2nd PARAM not a Number");
+    console.assert((bank.createCreditCard(account, 0, 0.05) == null), "2nd PARAM not greater than 0");
+    console.assert((bank.createCreditCard(account, 1500, -0.05) == null), "3rd PARAM not between 0 and 1 exclusive");
+    console.assert((bank.createCreditCard(account, 1500, 0.05) != null), "VALID CreditCard not created properly");
 
-    
+    // Create Debit Card
+    console.assert((bank.createDebitCard(customer, 1500) == null), "1st PARAM not a Valid Account");
+    console.assert((bank.createDebitCard(account, "1500") == null), "2nd PARAM not a Number");
+    console.assert((bank.createDebitCard(account, 0) == null), "2nd PARAM not greater than 0");
+    console.assert((bank.createDebitCard(account, 1500) != null), "VALID DebitCard not created properly");
+
+    console.log(failedCases);
 }
