@@ -1,6 +1,11 @@
+import * as React from 'react';
+import styled from 'styled-components';
+import { useNavigate  } from 'react-router-dom';
+
+const Wrapper = styled.div`
 .main{
-    height: 100%;
-    width: 100%;
+    height: 83.25vh;
+    width: 100vw;
     background-color: #293225;
     background-position: center;
     background-size: 110%;
@@ -84,4 +89,28 @@
       box-shadow: 0 -8px #74992E;
       height: 40px;
     }
+  }
+`;
+
+export const Redirect = () => {
+    let navigate = useNavigate();
+    
+    const routeChange = () =>{ 
+      let path = `/dashboard`; 
+      navigate(path);
+    }
+  
+    setTimeout(routeChange, 3000);
+  
+    return (
+      <>
+        <Wrapper>
+          <div className="main">
+            <div className="loader">
+              <div className="justify-content-center jimu-primary-loading"></div>
+            </div>
+          </div>
+        </Wrapper>
+      </>
+    );
   }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import Sidebar from '../Sidebar'
 
 const GridWrapper = styled.div`
   display: grid;
@@ -11,7 +12,10 @@ const GridWrapper = styled.div`
 `;
 
 export const Settings = () => (
+  <>
+    <Sidebar />
     <GridWrapper>
-        <p>Settings</p>
+      <p>No Match</p>
     </GridWrapper>
+  </>
 )
