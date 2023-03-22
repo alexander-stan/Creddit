@@ -1,10 +1,10 @@
 import Account from "./Account.js"
 
 export default class Customer {
-    constructor(username,email,password) {
+    constructor(username,email,account) {
         this.username = username;
         this.email = email;
-        this.primaryAccount = new Account(password);
+        this.primaryAccount = account;
     }
 
     // Getter Method(s)
