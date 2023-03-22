@@ -21,6 +21,14 @@ export default class Bank {
     }
 
     deposit(card,amount) {
+        if (typeof(card) != 'object' || (card.constructor.name != 'DebitCard' && card.constructor.name != 'CreditCard')) {
+            return false;
+        }
+
+        if (typeof(amount) != 'number' || amount < 0) {
+            return false;
+        }
+        
         card.setBalance(card.getBalance() + amount);
     }
 
