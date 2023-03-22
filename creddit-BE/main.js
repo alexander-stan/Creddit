@@ -50,12 +50,12 @@ export default function runTestCases() {
     currCase++; try { assert(bank.createDebitCard(account, 0) == null); } catch (error) { failedCases++,console.error(currCase,"2nd PARAM not greater than 0"); }
     currCase++; try { assert(typeof(bank.createDebitCard(account, 1500)) == 'object'); } catch (error) { failedCases++,console.error(currCase,"VALID DebitCard not created properly"); }
 
-    // Deposit
+    // Deposit (Debit)
     d_card.setBalance(0);
     currCase++; try {
         bank.deposit(d_card,500);
         assert(d_card.getBalance() == 500);
-    } catch (error) { failedCases++,console.error(currCase,"Deposit amount was not properly added"); }
+    } catch (error) { failedCases++,console.error(currCase,"Debit Deposit amount was not properly added"); }
     currCase++; try {
         assert(bank.deposit("d_card","500") == false);
     } catch (error) { failedCases++,console.error(currCase,"Card not passed properly"); }
@@ -66,37 +66,56 @@ export default function runTestCases() {
         assert(bank.deposit(d_card,"500") == false);
     } catch (error) { failedCases++,console.error(currCase,"Number not passed properly"); }
 
-
-    // Withdraw
-    d_card.setBalance(500); // Set Balance
+    // Deposit (Credit)
+    c_card.setBalance(100);
     currCase++; try {
-        bank.withdraw(d_card,400);
+        bank.deposit(c_card,500);
+        assert(c_card.getBalance() == -400);
+    } catch (error) { failedCases++,console.error(currCase,"Credit Deposit amount was not properly added"); }
+
+    // Withdraw (Debit)
+    d_card.setBalance(1100); // Set Balance
+    currCase++; try {
+        assert(bank.withdraw(d_card,1001) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Withdraw past transaction limit"); }
+    currCase++; try {
+        bank.withdraw(d_card,1000);
         assert(d_card.getBalance() == 100);
-    } catch (error) { failedCases++,console.error(currCase,"Withdraw amount was not properly removed"); }
+    } catch (error) { failedCases++,console.error(currCase,"Debit Withdraw amount was not properly removed"); }
     currCase++; try {
         assert(bank.withdraw("d_card","500") == false);
     } catch (error) { failedCases++,console.error(currCase,"Card not passed properly"); }
     currCase++; try {
         assert(bank.withdraw(d_card,-100) == false);
     } catch (error) { failedCases++,console.error(currCase,"Negative Withdraw amount"); }
-    d_card.setBalance(100); // Set Balance
     currCase++; try {
         assert(bank.withdraw(d_card,101) == false);
     } catch (error) { failedCases++,console.error(currCase,"Withdraw from non-existent balance"); }
-    d_card.setBalance(1100); // Set Balance
-    currCase++; try {
-        assert(bank.withdraw(d_card,1050) == false);
-    } catch (error) { failedCases++,console.error(currCase,"Withdraw past transaction limit"); }
-    c_card.setBalance(100); // Set Balance
-    currCase++; try {
-        assert(bank.withdraw(c_card,1000) == false);
-    } catch (error) { failedCases++,console.error(currCase,"Withdraw past credit limit"); }
     currCase++; try {
         assert(bank.withdraw(d_card,"500") == false);
     } catch (error) { failedCases++,console.error(currCase,"Number not passed properly"); }
 
-    // Transfer
+    // Withdraw (Credit)
+    c_card.setBalance(100); // Set Balance
+    currCase++; try {
+        assert(bank.withdraw(c_card,901) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Withdraw past credit limit"); }
+    currCase++; try {
+        bank.withdraw(c_card,400);
+        assert(c_card.getBalance() == 500);
+    } catch (error) { failedCases++,console.error(currCase,"Credit Withdraw amount was not properly removed"); }
 
+    // Transaction History
+    currCase++; try {
+        assert(d_card.getTransactionHistory().length == 2);
+    } catch (error) { failedCases++,console.error(currCase,"Debit transaction history not properly updated"); }
+    currCase++; try {
+        assert(c_card.getTransactionHistory().length == 2);
+    } catch (error) { failedCases++,console.error(currCase,"Credit transaction history not properly updated"); }
+
+    // Transfer
+    d_card.setBalance(500); // Set Balance
+    c_card.setBalance(500); // Set Balance
 
     console.log("Test Cases Passed: ",(currCase-failedCases),"/",currCase);
 }

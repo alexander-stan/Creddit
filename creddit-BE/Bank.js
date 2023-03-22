@@ -31,8 +31,16 @@ export default class Bank {
             return false;
         }
         
-        // Set the balance of the card
-        card.setBalance(card.getBalance() + amount);
+        if (card.constructor.name == 'DebitCard') {
+            // Set the balance of the card
+            card.setBalance(card.getBalance() + amount);
+            card.addTransaction(amount);
+        } else { // Credit Card
+            // Set the balance of the card
+            card.setBalance(card.getBalance() - amount);
+            card.addTransaction(-amount);
+        }
+
         return card;
     }
 
@@ -52,15 +60,21 @@ export default class Bank {
             if (card.getBalance() < amount || card.getTransactionLimit() < amount) {
                 return false;
             }
-        } else {
+
+            // Set the balance of the card
+            card.addTransaction(-amount);
+            card.setBalance(card.getBalance() - amount);
+        } else { // Credit Card
             // Ensure the card is not being used past its Credit limit
             if (card.getBalance() + amount > card.getCreditLimit()) {
                 return false;
             }
+
+            // Set the balance of the card
+            card.addTransaction(amount);
+            card.setBalance(card.getBalance() + amount);     
         }
 
-        // Set the balance of the card
-        card.setBalance(card.getBalance() - amount);
         return card;
     }
 
