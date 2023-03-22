@@ -58,7 +58,8 @@ html {
 }
 
 .Sign-up-form{
-    min-width: 30rem;
+    min-width: 25rem;
+    max-width: 25rem;
     align-self: center;
     width: 30%;
     margin: 1rem 0;
@@ -106,7 +107,7 @@ form {
 }
 form label{
     color: #252B23;
-    font-size: 20px;
+    font-size: 18px;
     margin-left: 10px;
     float: left;
     padding-top: 10px;
