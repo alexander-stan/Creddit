@@ -25,7 +25,7 @@
                 </div>
                 <div class="myAccounts">
                     <p>Alex's Account</p>
-                    <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
+                    <div class="accountFormat">
                         <div class="accountList">
                             <p>Debit Account</p>
                         </div>
@@ -33,8 +33,9 @@
                             <p>Credit Account</p>
                         </div>
                     </div>
+                    
                     <p>Teos Account</p>
-                    <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
+                    <div class="accountFormat">
                         <div class="accountList">
                             <p>Debit Account</p>
                         </div>
@@ -43,7 +44,7 @@
                         </div>
                     </div>
                     <p>Hadi's Account</p>
-                    <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
+                    <div class="accountFormat">
                         <div class="accountList">
                             <p>Debit Account</p>
                         </div>
@@ -69,60 +70,61 @@
                         </a>
                 </div>
                 <div class="desc">
-                    <div >Account Type</div>
-                    <div style="margin-left:2rem">Account Number#</div>
-                    <div style="margin-right: 4.5rem;">As Of Date</div>
-                    <div style="text-align: right">Totals</div>
+                    <div class="item2">Account</div>
+                    <div class="item3">Totals </div>
                 </div>
                 <div class="listOfAccounts">
                     <div class="header">
-                        <span style="font-size: 18px; align-self: center; margin-left: 1rem ">Debit Accounts</span>
+                        <span class="summaryHeading">Debit Accounts</span>
                     </div>
                     <div class="accountSum">
                         <div>
                             <p>Alex's Account</p>
                             <div class="accountDesc">
-                                <div><p style="color:#74992E;font-weight: bold; min-width: 10rem">Chequing</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">XXXX-XXXX-XXX</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">Mmm DD, YYYY</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem; text-align: right;">$100000.01 CAD</p></div>
-                                
+                                <div style="flex-direction: column;">
+                                    <p class="accountType">Chequing</p>
+                                    <p class="accountNum">XXXX-XXXX-XXX</p>
+                                </div>
+                                <p class="accountBal">$100000.01 CAD</p>
                             </div>
                             <div class="accountDesc">
-                                <div><p style="color:#74992E;font-weight: bold; min-width: 10rem">Savings</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">XXXX-XXXX-XXX</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">Mmm DD, YYYY</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem;text-align: right;">$0.01 CAD</p></div>
+                                <div style="flex-direction: column;">
+                                    <p class="accountType">Savings</p>
+                                    <p class="accountNum">XXXX-XXXX-XXX</p>
+                                </div>
+                                <p class="accountBal">$100000.01 CAD</p>
                             </div>
                         </div>
                         <div>
                             <p>Teo's Account</p>
                             <div class="accountDesc">
-                                <div><p style="color:#74992E;font-weight: bold; min-width: 10rem">Chequing</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">XXXX-XXXX-XXX</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">Mmm DD, YYYY</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem; text-align: right;">$1.01 CAD</p></div>
-                                
+                                <div style="flex-direction: column;">
+                                    <p class="accountType">Chequing</p>
+                                    <p class="accountNum">XXXX-XXXX-XXX</p>
+                                </div>
+                                <p class="accountBal">$100000.01 CAD</p>
                             </div>
                             <div class="accountDesc">
-                                <div><p style="color:#74992E;font-weight: bold; min-width: 10rem">Savings</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">XXXX-XXXX-XXX</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">Mmm DD, YYYY</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem;text-align: right;">$0.01 CAD</p></div>
+                                <div style="flex-direction: column;">
+                                    <p class="accountType">Savings</p>
+                                    <p class="accountNum">XXXX-XXXX-XXX</p>
+                                </div>
+                                <p class="accountBal">$100000.01 CAD</p>
                             </div>
                             <p>Hadi's Account</p>
                             <div class="accountDesc">
-                                <div><p style="color:#74992E;font-weight: bold; min-width: 10rem">Chequing</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">XXXX-XXXX-XXX</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">Mmm DD, YYYY</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem; text-align: right;">$100000.01 CAD</p></div>
-                                
+                                <div style="flex-direction: column;">
+                                    <p class="accountType">Chequing</p>
+                                    <p class="accountNum">XXXX-XXXX-XXX</p>
+                                </div>
+                                <p class="accountBal">$100000.01 CAD</p>
                             </div>
                             <div class="accountDesc">
-                                <div><p style="color:#74992E;font-weight: bold; min-width: 10rem">Savings</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">XXXX-XXXX-XXX</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">Mmm DD, YYYY</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem;text-align: right;">$0.01 CAD</p></div>
+                                <div style="flex-direction: column;">
+                                    <p class="accountType">Savings</p>
+                                    <p class="accountNum">XXXX-XXXX-XXX</p>
+                                </div>
+                                <p class="accountBal">$100000.01 CAD</p>
                             </div>
                         </div>
                     </div>
@@ -132,25 +134,26 @@
                 </div>
                 <div class="listOfAccounts">
                     <div class="header">
-                        <span style="font-size: 18px; align-self: center; margin-left: 1rem ">Credit Accounts</span>
+                        <span class="summaryHeading">Credit Accounts</span>
                     </div>
                     <div class="accountSum">
                         <div>
                             <p>Alex's Credit Card</p>
                             <div class="accountDesc">
-                                <div><p style="color:#74992E;font-weight: bold; min-width: 10rem">Creddit Card</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">XXXX-XXXX-XXXX</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">Mmm DD, YYYY</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem; text-align: right;">$999.99 CAD</p></div>
+                                <div style="flex-direction: column;">
+                                    <p class="accountType">Creddit Card</p>
+                                    <p class="accountNum">XXXX-XXXX-XXXX</p>
+                                </div>
+                                <p class="accountBal">$999.99 CAD</p>
                             </div>
-                        </div>
                         <div>
                             <p>Hadi's Credit Card</p>
                             <div class="accountDesc">
-                                <div><p style="color:#74992E;font-weight: bold; min-width: 10rem">Creddit Card</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">XXXX-XXXX-XXXX</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem">Mmm DD, YYYY</p></div>
-                                <div><p style="color:#000000;font-weight: bold; min-width: 10rem; text-align: right;">$111.11 CAD</p></div>
+                                <div style="flex-direction: column;">
+                                    <p class="accountType">Creddit Card</p>
+                                    <p class="accountNum">XXXX-XXXX-XXXX</p>
+                                </div>
+                                <p class="accountBal">$999.99 CAD</p>
                             </div>
                         </div>
                     </div>
@@ -182,21 +185,27 @@
                     <div class="form tabPanel">
                         <form>
                         <div class="accountDesc">
-                            <label for="Account" style="padding-right:20px"><span style="color:red;">*</span>From</label>
+                            <label for="Account" class="QAlabels"><span style="color:red;">*</span>From</label>
                             <select id="Account" name="Account">
                                 <option value="" disabled selected hidden>Select Account...</option>
                                 <option value="Alex">Alex's Account</option>
                                 <option value="Teo">Teo's Account</option>
                                 <option value="Hadi">Hadi's Account</option>
                             </select><br>
-                            <label for="Payee" style="padding-right:20px;"><span style="color:red;">*</span>To</label>
+                            <label for="Account" class="QAlabels"><span style="color:red;">*</span>Type</label>
+                            <select id="type" name="type">
+                                <option value="" disabled selected hidden>Select Account Type...</option>
+                                <option value="Chequing">Chequing</option>
+                                <option value="Savings">Savings</option>
+                            </select><br>
+                            <label for="Payee" class="QAlabels"><span style="color:red;">*</span>To</label>
                             <select id="Payee" name="Payee">
                                 <option value="" disabled selected hidden>Select Payee...</option>
                                 <option value="Alex">Alex's Account</option>
                                 <option value="Teo">Teo's Account</option>
                                 <option value="Hadi">Hadi's Account</option>
                             </select><br>
-                            <label for="Amount" style="padding-right:20px"><span style="color:red;">*</span>Amount</label>
+                            <label for="Amount" class="QAlabels"><span style="color:red;">*</span>Amount</label>
                             <input type="text" id="Amount" name="Amount" placeholder="$Amount">
                         </div>
                         <button><input class="Payment button_top" type="submit" value="Make Payment" style="font-size: 15px; font-weight: bold;"></button>
@@ -205,20 +214,26 @@
                     <div class="form tabPanel">
                         <form>
                             <div class="accountDesc">
-                                <label for="Account" style="padding-right:20px"><span style="color:red;">*</span>From</label>
+                                <label for="Account" class="QAlabels"><span style="color:red;">*</span>From</label>
                                 <select id="Account" name="Account">
                                     <option value="" disabled selected hidden>Select Account...</option>
                                     <option value="Alex">Alex's Account</option>
                                     <option value="Teo">Teo's Account</option>
                                     <option value="Hadi">Hadi's Account</option>
                                 </select><br>
-                                <label for="Payee" style="padding-right:20px;"><span style="color:red;">*</span>To</label>
+                                <label for="Account" class="QAlabels"><span style="color:red;">*</span>Type</label>
+                                <select id="type" name="type">
+                                    <option value="" disabled selected hidden>Select Account Type...</option>
+                                    <option value="Chequing">Chequing</option>
+                                    <option value="Savings">Savings</option>
+                                </select><br>
+                                <label for="Payee" class="QAlabels"><span style="color:red;">*</span>To</label>
                                 <select id="Payee" name="Payee">
                                     <option value="" disabled selected hidden>Select Account Type...</option>
                                     <option value="Chequing">Chequing</option>
                                     <option value="Savings">Savings</option>
                                 </select><br>
-                                <label for="Amount" style="padding-right:20px"><span style="color:red;">*</span>Amount</label>
+                                <label for="Amount" class="QAlabels"><span style="color:red;">*</span>Amount</label>
                                 <input type="text" id="Amount" name="Amount" placeholder="$ Transfer Amount">
                             </div>
                             <button><input class="Payment button_top" type="submit" value="Confirm Transfer" style="font-size: 15px; font-weight: bold;"></button>
@@ -227,14 +242,20 @@
                     <div class="tabPanel">
                         <form>
                             <div class="accountDesc">
-                                <label for="Account" style="padding-right:20px"><span style="color:red;">*</span>From</label>
+                                <label for="Account" class="QAlabels"><span style="color:red;">*</span>From</label>
                                 <select id="Account" name="Account">
                                     <option value="" disabled selected hidden>Select Account...</option>
                                     <option value="Alex">Alex's Account</option>
                                     <option value="Teo">Teo's Account</option>
                                     <option value="Hadi">Hadi's Account</option>
                                 </select><br>
-                                <label for="Amount" style="padding-right:20px"><span style="color:red;">*</span>Amount</label>
+                                <label for="Account" class="QAlabels"><span style="color:red;">*</span>Type</label>
+                                <select id="type" name="type">
+                                    <option value="" disabled selected hidden>Select Account Type...</option>
+                                    <option value="Chequing">Chequing</option>
+                                    <option value="Savings">Savings</option>
+                                </select><br>
+                                <label for="Amount" class="QAlabels"><span style="color:red;">*</span>Amount</label>
                                 <input type="text" id="Amount" name="Amount" placeholder="$ Withdraw Amount">
                             </div>
                             <button><input class="Payment button_top" type="submit" value="Confirm Withdraw" style="font-size: 15px; font-weight: bold;"></button>
@@ -244,14 +265,14 @@
                     <div class="tabPanel">
                         <form>
                             <div class="accountDesc">
-                                <label for="Account" style="padding-right:20px"><span style="color:red;">*</span>From</label>
+                                <label for="Account" class="QAlabels"><span style="color:red;">*</span>From</label>
                                 <select id="Account" name="Account">
                                     <option value="" disabled selected hidden>Select Account...</option>
                                     <option value="Alex">Alex's Account</option>
                                     <option value="Teo">Teo's Account</option>
                                     <option value="Hadi">Hadi's Account</option>
                                 </select><br>
-                                <label for="Payee" style="padding-right:20px;"><span style="color:red;">*</span>To</label>
+                                <label for="Payee" class="QAlabels"><span style="color:red;">*</span>To</label>
                                 <select id="Payee" name="Payee">
                                     <option value="" disabled selected hidden>Select Account Type...</option>
                                     <option value="Chequing">Chequing</option>
