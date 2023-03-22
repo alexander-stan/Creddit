@@ -21,19 +21,47 @@ export default class Bank {
     }
 
     deposit(card,amount) {
+        // Check if the card argument is a Card object (Debit or Credit)
         if (typeof(card) != 'object' || (card.constructor.name != 'DebitCard' && card.constructor.name != 'CreditCard')) {
             return false;
         }
 
+        // Check if the number passed is a Integer >= 0
         if (typeof(amount) != 'number' || amount < 0) {
             return false;
         }
         
+        // Set the balance of the card
         card.setBalance(card.getBalance() + amount);
+        return card;
     }
 
     withdraw(card,amount) {
+        // Check if the card argument is a Card object (Debit or Credit)
+        if (typeof(card) != 'object' || (card.constructor.name != 'DebitCard' && card.constructor.name != 'CreditCard')) {
+            return false;
+        }     
         
+        // Check if the number passed is a Integer >= 0
+        if (typeof(amount) != 'number' || amount < 0) {
+            return false;
+        }
+
+        if (card.constructor.name == 'DebitCard') {
+            // Ensure the card has funds and the transaction is not past its limit
+            if (card.getBalance() < amount || card.getTransactionLimit() < amount) {
+                return false;
+            }
+        } else {
+            // Ensure the card is not being used past its Credit limit
+            if (card.getBalance() + amount > card.getCreditLimit()) {
+                return false;
+            }
+        }
+
+        // Set the balance of the card
+        card.setBalance(card.getBalance() - amount);
+        return card;
     }
 
     payBill() {
@@ -52,9 +80,12 @@ export default class Bank {
 
     // Create a brand new Customer Object
     createCustomer(name,email,password) {
+        // Create Main Card, Account, and Customer (Link them)
         let card = new DebitCard(1000);
         let account = new Account(password,card);
         let customer = new Customer(name,email,account);
+
+        // Push the customer instance to the Customer array
         this.customers.push(customer);
 
         // Register the Customer in the Database

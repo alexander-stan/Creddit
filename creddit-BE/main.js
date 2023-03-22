@@ -51,6 +51,7 @@ export default function runTestCases() {
     currCase++; try { assert(typeof(bank.createDebitCard(account, 1500)) == 'object'); } catch (error) { failedCases++,console.error(currCase,"VALID DebitCard not created properly"); }
 
     // Deposit
+    d_card.setBalance(0);
     currCase++; try {
         bank.deposit(d_card,500);
         assert(d_card.getBalance() == 500);
@@ -64,6 +65,37 @@ export default function runTestCases() {
     currCase++; try {
         assert(bank.deposit(d_card,"500") == false);
     } catch (error) { failedCases++,console.error(currCase,"Number not passed properly"); }
+
+
+    // Withdraw
+    d_card.setBalance(500); // Set Balance
+    currCase++; try {
+        bank.withdraw(d_card,400);
+        assert(d_card.getBalance() == 100);
+    } catch (error) { failedCases++,console.error(currCase,"Withdraw amount was not properly removed"); }
+    currCase++; try {
+        assert(bank.withdraw("d_card","500") == false);
+    } catch (error) { failedCases++,console.error(currCase,"Card not passed properly"); }
+    currCase++; try {
+        assert(bank.withdraw(d_card,-100) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Negative Withdraw amount"); }
+    d_card.setBalance(100); // Set Balance
+    currCase++; try {
+        assert(bank.withdraw(d_card,101) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Withdraw from non-existent balance"); }
+    d_card.setBalance(1100); // Set Balance
+    currCase++; try {
+        assert(bank.withdraw(d_card,1050) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Withdraw past transaction limit"); }
+    c_card.setBalance(100); // Set Balance
+    currCase++; try {
+        assert(bank.withdraw(c_card,1000) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Withdraw past credit limit"); }
+    currCase++; try {
+        assert(bank.withdraw(d_card,"500") == false);
+    } catch (error) { failedCases++,console.error(currCase,"Number not passed properly"); }
+
+    // Transfer
 
 
     console.log("Test Cases Passed: ",(currCase-failedCases),"/",currCase);

@@ -6,4 +6,8 @@ export default class CreditCard extends Card {
         this.credit_limit = credit_limit;
         this.interest_rate = interest_rate
     }
+
+    // Getter Method(s)
+    getCreditLimit() { return this.credit_limit; }
+    getInterestRate() { return this.interest_rate; }
 }
