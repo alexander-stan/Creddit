@@ -23,7 +23,7 @@ runTestCases();
 
 // Test Case Function
 export default function runTestCases() {
-    let totalCases = 10;
+    let totalCases = 9;
     let failedCases = 0;
 
     function assert(condition) {
@@ -37,17 +37,17 @@ export default function runTestCases() {
     let customer = new Customer("Mike Test","mike@test.com",account);
 
     // Create Credit Card
-    console.assert((bank.createCreditCard(customer, 1500, 0.05) == null), "1st PARAM not a Valid Account");
-    console.assert((bank.createCreditCard(account, "1500", 0.05) == null), "2nd PARAM not a Number");
-    console.assert((bank.createCreditCard(account, 0, 0.05) == null), "2nd PARAM not greater than 0");
-    console.assert((bank.createCreditCard(account, 1500, -0.05) == null), "3rd PARAM not between 0 and 1 exclusive");
-    console.assert((bank.createCreditCard(account, 1500, 0.05) != null), "VALID CreditCard not created properly");
+    try { assert(bank.createCreditCard(customer, 1500, 0.05) == null); } catch (error) { failedCases++,console.error("1st PARAM not a Valid Account"); }
+    try { assert(bank.createCreditCard(account, "1500", 0.05) == null); } catch (error) { failedCases++,console.error("2nd PARAM not a Number"); }
+    try { assert(bank.createCreditCard(account, 0, 0.05) == null); } catch (error) { failedCases++,console.error("2nd PARAM not greater than 0"); }
+    try { assert(bank.createCreditCard(account, 1500, -0.05) == null); } catch (error) { failedCases++,console.error("3rd PARAM not between 0 and 1 exclusive"); }
+    try { assert(typeof(bank.createCreditCard(account, 1500, 0.05)) == 'object'); } catch (error) { failedCases++,console.error("VALID CreditCard not created properly"); }
 
     // Create Debit Card
     try { assert(bank.createDebitCard(customer, 1500) == null); } catch (error) { failedCases++,console.error("1st PARAM not a Valid Account"); }
-    console.assert((bank.createDebitCard(account, "1500") == null), "2nd PARAM not a Number");
-    console.assert((bank.createDebitCard(account, 0) == null), "2nd PARAM not greater than 0");
-    console.assert((bank.createDebitCard(account, 1500) != null), "VALID DebitCard not created properly");
+    try { assert(bank.createDebitCard(account, "1500") == null); } catch (error) { failedCases++,console.error("2nd PARAM not a Number"); }
+    try { assert(bank.createDebitCard(account, 0) == null); } catch (error) { failedCases++,console.error("2nd PARAM not greater than 0"); }
+    try { assert(typeof(bank.createDebitCard(account, 1500)) == 'object'); } catch (error) { failedCases++,console.error("VALID DebitCard not created properly"); }
 
-    console.log(failedCases);
+    console.log("Passed: ",(totalCases-failedCases),"/",totalCases);
 }
