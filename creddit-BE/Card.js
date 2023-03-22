@@ -12,4 +12,7 @@ export default class Card {
     getIdentifier() { return this.identifier; }
     getExpiryDate() { return this.expiry_date; }
     getBalance() { return this.balance; }
+
+    // Setter Method(s)
+    setBalance(balance) { this.balance = balance; }
 }

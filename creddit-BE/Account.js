@@ -18,13 +18,13 @@ export default class Account {
     getCards() { return this.cards; }
 
     addCard(card) {
-        cards.push(card);
+        this.cards.push(card);
     }
 
     removeCard(card) {
-        var index = arr.indexOf(card);
+        var index = this.cards.indexOf(card);
         if (index > -1) {
-            cards.splice(index, 1);
+            this.cards.splice(index, 1);
         }
     }
 
