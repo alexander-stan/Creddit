@@ -18,6 +18,7 @@ function App() {
       <Router>
         <NavigationBar />
         <Sidebar />
+        <Dashboard />
         <Routes>
           <Route exact path="/" element={<Dashboard />} />
           <Route path="/accounts" element={<Accounts/>}/>
