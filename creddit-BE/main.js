@@ -26,10 +26,9 @@ export default function runTestCases() {
     let totalCases = 10;
     let failedCases = 0;
 
-    function assert(condition, message) {
+    function assert(condition) {
         if (!condition) {
-            failedCases++;
-            throw new Error(message || "Assertion failed");
+            throw new Error();
         }
     }
 
@@ -45,7 +44,7 @@ export default function runTestCases() {
     console.assert((bank.createCreditCard(account, 1500, 0.05) != null), "VALID CreditCard not created properly");
 
     // Create Debit Card
-    console.assert((bank.createDebitCard(customer, 1500) == null), "1st PARAM not a Valid Account");
+    try { assert(bank.createDebitCard(customer, 1500) == null); } catch (error) { failedCases++,console.error("1st PARAM not a Valid Account"); }
     console.assert((bank.createDebitCard(account, "1500") == null), "2nd PARAM not a Number");
     console.assert((bank.createDebitCard(account, 0) == null), "2nd PARAM not greater than 0");
     console.assert((bank.createDebitCard(account, 1500) != null), "VALID DebitCard not created properly");
