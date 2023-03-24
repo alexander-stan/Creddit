@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
 // creates token for user
 // used thorught the application so user doesnt have to login at every page
 // contains encripted user identification
-userSchema.methods.generateAuthToekn = function () {
+userSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({_id: this._id}, process.env.JWTPRIVATEKEY, {expiresIn: "7d"});
     return token
 }

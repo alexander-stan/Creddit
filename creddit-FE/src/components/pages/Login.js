@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useState } from "react";
+import axios from "axios";
 import styled from 'styled-components';
 import img from '../images/koibg.jpg';
 import { useNavigate  } from 'react-router-dom';
@@ -100,11 +101,39 @@ form input[type="text"] , [type="password"]{
 
 
 export const Login = () => {
-    let navigate = useNavigate(); 
-    const routeChange = () =>{ 
-      let path = `/redirect`; 
-      navigate(path);
-    }
+
+    const [data, setData] = useState(
+        { email: "", 
+        password: "" 
+    });
+
+	const [error, setError] = useState("");
+
+    const navigate = useNavigate();
+
+	const handleChange = ({ currentTarget: input }) => {
+		setData({ ...data, [input.name]: input.value });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const url = "http://localhost:8080/api/auth";
+			const { data: res } = await axios.post(url, data);
+			localStorage.setItem("token", res.data);
+			window.location = "/";
+            navigate("/login");
+
+		} catch (error) {
+			if (
+				error.response &&
+				error.response.status >= 400 &&
+				error.response.status <= 500
+			) {
+				setError(error.response.data.message);
+			}
+		}
+	};
     return (
         <Styles>
             <div className='main'>
@@ -112,10 +141,32 @@ export const Login = () => {
                     <p className="formHeader">Log In</p>
                     <form>
                         <label>Email</label>
-                        <input type="text"/>
+
+                        <input 
+                        
+                        type="text"
+                        placeholder="Email"
+						name="email"
+						onChange={handleChange}
+						value={data.email}
+						required
+    
+                        />
+
+
                         <label>Password</label>
-                        <input type="password"/>
-                        <button type="button" className="create" onClick={routeChange}>Log In</button>
+                        <input 
+                        
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        onChange={handleChange}
+                        value={data.password}
+                        required
+                        
+                        
+                        />
+                        <button type="button" className="create" onClick={handleSubmit}>Log In</button>
                     </form>
 
                     <p className="agreement">By logging in to your account, you agree to our <span className="termsColor">Terms</span> and<br />
