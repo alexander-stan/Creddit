@@ -27,11 +27,11 @@ const User = mongoose.model("user", userSchema);
 
 // check if input is of the approprite form used for data in db
 const validate = (data) => {
-    const schema = joi.object({
-        firstName: Joi.string.required().label("First Name"),
-        lastName: Joi.string.required().label("Last Name"),
-        email: Joi.string.required().label("Email"),
-        password: passwordComplexity.required().label("Password")
+    const schema = Joi.object({
+        firstName: Joi.string().required().label("First Name"),
+        lastName: Joi.string().required().label("Last Name"),
+        email: Joi.string().required().label("Email"),
+        password: passwordComplexity().required().label("Password")
     });
     return schema.validate(data)
 
