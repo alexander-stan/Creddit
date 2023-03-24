@@ -46,6 +46,7 @@ const Sidebar = () => {
     { name: "Transfers", path: "/transfers"},
     { name: "Add Accounts", path: "/add-accounts"},
     { name: "Settings", path: "/settings" },
+    { name: "Log Out", path: "/"}
 
   ];
 
