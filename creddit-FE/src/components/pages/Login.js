@@ -166,6 +166,7 @@ export const Login = () => {
                         
                         />
                         <button type="button" className="create" onClick={handleSubmit}>Log In</button>
+                        {error && <p>{error}</p>}
                     </form>
 
                     <p className="agreement">By logging in to your account, you agree to our <span className="termsColor">Terms</span> and<br />

@@ -185,6 +185,7 @@ export const Signup = () => {
 
                         
                         <button type="button" className="create" onClick={handleSubmit}>Create Account</button>
+                        {error && <p>{error}</p>}
                     </form>
                     {/* <p className="agreement">By logging in to your account, you agree to our <span className="termsColor">Terms</span> and<br />
                         have read and acknowledge our <span className="termsColor">Global Privacy<br />Statement.</span></p>
