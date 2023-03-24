@@ -125,16 +125,49 @@ export default function runTestCases() {
 
     currCase++; try {
         assert(bank.transfer(d_card,c_card,200) == true);
-    } catch (error) { failedCases++,console.error(currCase,"Valid transfer between Credit and Debit failed"); }
-
-
+    } catch (error) { failedCases++,console.error(currCase,"Valid transfer between Debit and Credit failed"); }
+    currCase++; try {
+        assert(d_card.getBalance() == 300);
+    } catch (error) { failedCases++,console.error(currCase,"Debit balance not properly updated"); }
+    currCase++; try {
+        assert(c_card.getBalance() == 300);
+    } catch (error) { failedCases++,console.error(currCase,"Credit balance not properly updated"); }
     currCase++; try {
         assert(bank.transfer(c_card,d_card,200) == true);
-    } catch (error) { failedCases++,console.error(currCase,"Valid transfer between Debit and Credit failed"); }
+    } catch (error) { failedCases++,console.error(currCase,"Valid transfer between Credit and Debit failed"); }
+    currCase++; try {
+        assert(c_card.getBalance() == 500);
+    } catch (error) { failedCases++,console.error(currCase,"Credit balance not properly updated"); }
+    currCase++; try {
+        assert(d_card.getBalance() == 500);
+    } catch (error) { failedCases++,console.error(currCase,"Debit balance not properly updated"); }
+    currCase++; try {
+        assert(bank.transfer(d_card,c_card,501) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Transfer past available balance"); }
+
+    d_card.setBalance(0); // Set Balance
+    c_card.setBalance(400); // Set Balance
 
     currCase++; try {
-        assert(bank.transfer(d_card,c_card,400) == false);
-    } catch (error) { failedCases++,console.error(currCase,"Transfer past available balance"); }
+        assert(bank.transfer(c_card,d_card,601) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Transfer past credit limit"); }
+
+    d_card.setBalance(1100); // Set Balance
+    c_card.setBalance(0); // Set Balance
+
+    currCase++; try {
+        assert(bank.transfer(d_card,c_card,1001) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Transfer past transaction limit"); }
+
+    currCase++; try {
+        assert(bank.transfer(customer,c_card,100) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Invalid 1st Argument"); }
+    currCase++; try {
+        assert(bank.transfer(d_card,account,100) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Invalid 2nd Argument"); }
+    currCase++; try {
+        assert(bank.transfer(d_card,c_card,"100") == false);
+    } catch (error) { failedCases++,console.error(currCase,"Invalid 3rd Argument"); }
 
     console.log("Test Cases Passed: ",(currCase-failedCases),"/",currCase);
 }
