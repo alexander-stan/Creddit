@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema({
 });
 
 // creates token for user
-// used thorught the application so user doesnt have to login at every page
-// contains encripted user identification
+// used throughout the application so user doesn't have to login at every page
+// contains encrypted user identification
 userSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({_id: this._id}, process.env.JWTPRIVATEKEY, {expiresIn: "7d"});
     return token
@@ -25,7 +25,7 @@ userSchema.methods.generateAuthToken = function () {
 // create user model, for further operations later
 const User = mongoose.model("user", userSchema);
 
-// check if input is of the approprite form used for data in db
+// check if input is of the appropriate form used for data in db
 const validate = (data) => {
     const schema = Joi.object({
         firstName: Joi.string().required().label("First Name"),

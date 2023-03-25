@@ -2,10 +2,10 @@ const router = require("express").Router();
 const {User, validate} = require("../models/user");// user model for db access 
 const bcrypt = require("bcrypt"); // used for hashing passwords
 
-// User acount creation, saving do tb?, validate input, with user model, then checking user login info with db 
+// User account creation, saving do tb?, validate input, with user model, then checking user login info with db 
 router.post("/", async (req, res) => {
     try{
-        // validate user info, via user.js validate funciton
+        // validate user info, via user.js validate function
         const{error} = validate(req.body);
         
         if(error)
