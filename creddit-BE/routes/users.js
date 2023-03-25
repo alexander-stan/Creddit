@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {User, validate} = require("../models/user");
+const {User, validate} = require("../models/user");// user model for db access 
 const bcrypt = require("bcrypt"); // used for hashing passwords
 
 // User acount creation, saving do tb?, validate input, with user model, then checking user login info with db 
