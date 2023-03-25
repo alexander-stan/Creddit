@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import Sidebar from '../Sidebar'
 
 const Wrapper = styled.div`
   margin-top: 1em;
@@ -8,7 +9,10 @@ const Wrapper = styled.div`
 `;
 
 export const NoMatch = () => (
-  <Wrapper>
-    <h2>No Match</h2>
-  </Wrapper>
+  <>
+    <Sidebar />
+    <Wrapper>
+      <p>No Match</p>
+    </Wrapper>
+  </>
 )
