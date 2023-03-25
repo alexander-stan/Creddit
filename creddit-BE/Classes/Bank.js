@@ -5,7 +5,6 @@ import CreditCard from "./CreditCard.js"
 
 export default class Bank {
     constructor() {
-        this.accounts = []
         this.customers = []
         this.loadCustomers();
         this.loadAccounts();
@@ -151,5 +150,15 @@ export default class Bank {
         let card = new DebitCard(transaction_limit);
         account.addCard(card);
         return card;
+    }
+
+    getCardByEmail(email) {
+        // Look for a customer by that email (so we can E-Transfer)
+        for (const customer in customers) {
+            if (customer.getEmail() == email) {
+                return customer.getPrimaryAccount();
+            }
+        }
+        return null;
     }
 }

@@ -1,9 +1,7 @@
 import DebitCard from "./DebitCard.js"
-let totalID = 0;
 
 export default class Account {
     constructor(password,card) {
-        this.identifier = ++totalID;
         this.access_card = card
         this.password = password;
         this.cards = [];
@@ -11,7 +9,6 @@ export default class Account {
     }
 
     // Getter Method(s)
-    getIdentifier() { return this.identifier; }
     getAccessCard() { return this.access_card; }
     getPassword() { return this.password; }
     getCards() { return this.cards; }
