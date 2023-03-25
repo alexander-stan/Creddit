@@ -1,7 +1,7 @@
-import Account from "./../Classes/Account.js"
-import Customer from "./../Classes/Customer.js"
-import DebitCard from "./../Classes/DebitCard.js"
-import CreditCard from "./../Classes/CreditCard.js"
+import Account from "../Classes/Account.js"
+import Customer from "../Classes/Customer.js"
+import DebitCard from "../Classes/DebitCard.js"
+import CreditCard from "../Classes/CreditCard.js"
 
 // Test Case Function
 export default function runTestCases(bank) {
