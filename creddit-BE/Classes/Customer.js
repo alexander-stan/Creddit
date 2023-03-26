@@ -11,4 +11,8 @@ export default class Customer {
     getPrimaryAccount() { return this.primaryAccount; }
     getUsername() { return this.username; }
     getEmail() { return this.email; }
+
+    // Setter Method(s)
+    setPassword(username) { this.username = username; }
+    setEmail(email) { this.email = email; }
 }

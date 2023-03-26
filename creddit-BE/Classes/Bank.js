@@ -7,7 +7,6 @@ export default class Bank {
     constructor() {
         this.customers = []
         this.loadCustomers();
-        this.loadAccounts();
     }
 
     transfer(card1,card2,amount) {
@@ -91,11 +90,6 @@ export default class Bank {
     // This function will load existing customers from the DB
     loadCustomers() {
         
-    }
-
-    // This function will load existing accounts from the DB
-    loadAccounts() {
-
     }
 
     // Create a brand new Customer Object
