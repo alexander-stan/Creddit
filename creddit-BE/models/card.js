@@ -2,9 +2,26 @@ const mongoose = require('mongoose');
 
 
 // define what info should look like in the db
-const userSchema = new mongoose.Schema({
+const cardSchema = new mongoose.Schema({
     id: {type: String, required: true},
     expireDate: {type: String, required: true},
-    balance: {type: String, required: true},
+    balance: {type: Number, required: true},
     transactionHistory: {type: [String], required: true}, // the type may not be of [String]??
 });
+
+// create account model, for further operations later
+const Card = mongoose.model("card", cardSchema);
+
+
+const validate = (user) => {
+    const schema = Joi.object({
+      id: Joi.string().required(),
+      expireDate: Joi.string().required(),
+      balance: Joi.number().required(),
+      transactionHistory: Joi.array().items(Joi.object()).required(),
+    });
+  
+    return schema.validate(user);
+  };
+
+  module.exports = {Card, validate};
