@@ -2,20 +2,20 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 
 
-// sub schema, defining a new type to store in db.
+// sub schema, defining a transaction history type to store in db.
 const transactionHistorySchema = new mongoose.Schema({
   transactionHistory: [{
-    amount: {type: Number, required: true},
-    date: {type: Date, required: true}
+    amount: { type: Number, required: true },
+    date: { type: Date, required: true }
   }]
 });
 
 // define what info should look like in the db
 const cardSchema = new mongoose.Schema({
-    id: {type: String, required: true},
-    expireDate: {type: String, required: true},
-    balance: {type: Number, required: true},
-    transactionHistory: {type: transactionHistorySchema, required: true}, // the type may not be of [String]??
+  id: { type: String, required: true },
+  expireDate: { type: String, required: true },
+  balance: { type: Number, required: true },
+  transactionHistory: { type: transactionHistorySchema, required: true }, // the type may not be of [String]??
 });
 
 
@@ -41,4 +41,4 @@ const validate = (data) => {
   return schema.validate(data);
 };
 
-module.exports = {Card, validate, cardSchema};
+module.exports = { Card, validate, cardSchema };

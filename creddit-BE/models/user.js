@@ -5,9 +5,9 @@ const { accountSchema } = require('./account');
 
 // define what info should look like in the db
 const userSchema = new mongoose.Schema({
-    fullName: {type: String, required: true},
-    email: {type: String, required: true},
-    accounts: [{type: accountSchema, required: true}],
+    fullName: { type: String, required: true },
+    email: { type: String, required: true },
+    accounts: [{ type: accountSchema, required: true }],
 
 });
 
@@ -27,5 +27,5 @@ const validate = (data) => {
 
 };
 
-module.exports = {User, validate};
+module.exports = { User, validate };
 
