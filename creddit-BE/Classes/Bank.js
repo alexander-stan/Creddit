@@ -54,6 +54,8 @@ export default class Bank {
         return card;
     }
 
+
+    // balance gets updated when user 
     withdraw(card,amount) {
         // Check if the card argument is a Card object (Debit or Credit)
         if (typeof(card) != 'object' || (card.constructor.name != 'DebitCard' && card.constructor.name != 'CreditCard')) {
@@ -90,49 +92,29 @@ export default class Bank {
 
     // This function will load existing customers from the DB
     loadCustomers() {
-        
-        /*
-        const User = require('./models/user');
 
-            // Get all users from the database from "collection" folder 
-            User.find({}, (err, users) => {
+        // Get all users from the database from "collection", folder users
+        User.find({}, (err, users) => {
             if (err) {
                 console.error(err);
             } else {
-            console.log(users);
+                console.log(users); // do stuff with users
+                
+                // iterate through the list of users and start creating customers 
+                // dont create customer, 
+                // how to iterate through a list in js?
             }
-            });
-        
-        
-        */
 
+
+        });    
+        
+        
         // use the customer.js's constructor to create and add all the customers to this.customer list
+            // how to access the account now? is it 
     }
 
-    // This function will load existing accounts from the DB
-    loadAccounts() {
-        // similar to above 
-
-        // import Account model 
-        // Const Account = require('./models/account)
-
-        // Get all users from the database from "collection" folder 
-        /*
-        Account.find({}, (err, accounts) => {
-            if (err) {
-                console.error(err);
-            } else {
-            console.log(users);
-            }
-            });
-        */
-
-        // customers hold accounts, figure out if u can do that in mongo db?
-
-        // it me be that we dont even need to load Accounts as they already will be loaded with customers
-        // if so, all account related functionality will be done through `MyCustomer.getPrimaryAccount()`
-
-    }
+    
+    // ** save to db  ********* //
 
     // Create a brand new Customer Object
     createCustomer(name,email,password) {
@@ -148,6 +130,9 @@ export default class Bank {
 
         return customer;
     }
+
+        // create card with access card at the start 
+
 
     createCreditCard(account, credit_limit, interest_rate) {
         // Check if the account passed in is an Account object
