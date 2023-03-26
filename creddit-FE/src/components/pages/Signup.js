@@ -102,8 +102,7 @@ form input[type="text"] , [type="password"]{
 export const Signup = () => {
    
     const [data, setData] = useState({
-        firstName: "",
-        lastName: "",
+        fullName: "",
         email: "",
         password: "",
     });
@@ -146,22 +145,13 @@ export const Signup = () => {
                         <label>First Name</label>
                         <input
                             type="text"
-                            placeholder="First Name"
-                            name="firstName"
+                            placeholder="Full Name"
+                            name="fullName"
                             onChange={handleChange}
-                            value={data.firstName}
+                            value={data.fullName}
                             required
                         />
 
-                        <label>Last Name</label>
-                        <input
-                            type="text"
-                            placeholder="Last Name"
-                            name="lastName"
-                            onChange={handleChange}
-                            value={data.lastName}
-                            required
-                        />
 
                         <label>Password</label>
                         <input

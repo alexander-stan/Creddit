@@ -2,19 +2,13 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const { cardSchema } = require('./card');
+const { userSchema } = require('./user');
 
 // pw validation
-const Joi = require('joi');
 const passwordComplexity = require("joi-password-complexity");
 const { valid, required } = require('joi');
 
-// creates token for user
-// used throughout the application so user doesn't have to login at every page
-// contains encrypted user identification
-userSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign({ _id: this._id }, process.env.JWTPRIVATEKEY, { expiresIn: "7d" });
-    return token
-}
+
 
 // define what info should look like in the db
 const accountSchema = new mongoose.Schema({
@@ -22,6 +16,14 @@ const accountSchema = new mongoose.Schema({
     password: { type: String, required: true },
     cards: [{ type: cardSchema, required: true }], // list of custom type, structure in card.js
 });
+
+// creates token for user
+// used throughout the application so user doesn't have to login at every page
+// contains encrypted user identification
+accountSchema.methods.generateAuthToken = function () {
+    const token = jwt.sign({ _id: this._id }, process.env.JWTPRIVATEKEY, { expiresIn: "7d" });
+    return token
+}
 
 // create account model, for further operations later
 const Account = mongoose.model("account", accountSchema);
