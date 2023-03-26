@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
 .landing-container{
     background-color: #293225;
-    height: 80vh;
+    height: 100vh;
     text-align: center;
 }
 
