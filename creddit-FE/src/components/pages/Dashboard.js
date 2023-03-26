@@ -17,6 +17,10 @@ const Styles = styled.div`
     display: inline-block;
   }
 
+  .red{
+    color: red;
+  }
+
   .container {
     display: flex;
     gap: 3rem;
@@ -287,12 +291,16 @@ const Styles = styled.div`
     min-width: 10rem;
     text-align: right;
   }
+  .columnClass {
+    flex-direction: column;
+  }
+  
 `;
 
 export const Dashboard = () => (
   <Styles>
     <div className="logo">
-      <img src="image.png" width="500px"></img>
+      <img src="public/image.png" width="500px"></img>
     </div>
     <div className="container">
       <div className="QuickActions">
@@ -319,7 +327,7 @@ export const Dashboard = () => (
                                     236Z"
                   />
                 </svg>
-                <span style={{ color: "#74992e", paddingLeft: "10px" }}>
+                <span className={{ color: "#74992e", paddingLeft: "10px" }}>
                   Quick Actions
                 </span>
               </span>
@@ -346,7 +354,7 @@ export const Dashboard = () => (
             <form>
               <div className="inputFormat">
                 <label for="Account" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>From
+                  <span className="red">*</span>From
                 </label>
                 <select id="Account" name="Account">
                   <option value="" disabled selected hidden>
@@ -358,7 +366,7 @@ export const Dashboard = () => (
                 </select>
                 <br></br>
                 <label for="Account" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>Type
+                  <span className="red">*</span>Type
                 </label>
                 <select id="type" name="type">
                   <option value="" disabled selected hidden>
@@ -369,7 +377,7 @@ export const Dashboard = () => (
                 </select>
                 <br></br>
                 <label for="Payee" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>To
+                  <span className="red">*</span>To
                 </label>
                 <select id="Payee" name="Payee">
                   <option value="" disabled selected hidden>
@@ -381,7 +389,7 @@ export const Dashboard = () => (
                 </select>
                 <br></br>
                 <label for="Amount" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>Amount
+                  <span className="red">*</span>Amount
                 </label>
                 <input
                   type="text"
@@ -404,7 +412,7 @@ export const Dashboard = () => (
             <form>
               <div className="inputFormat">
                 <label for="Account" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>From
+                  <span className="red">*</span>From
                 </label>
                 <select id="Account" name="Account">
                   <option value="" disabled selected hidden>
@@ -416,7 +424,7 @@ export const Dashboard = () => (
                 </select>
                 <br></br>
                 <label for="Account" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>Type
+                  <span className="red">*</span>Type
                 </label>
                 <select id="type" name="type">
                   <option value="" disabled selected hidden>
@@ -427,7 +435,7 @@ export const Dashboard = () => (
                 </select>
                 <br></br>
                 <label for="Payee" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>To
+                  <span className="red">*</span>To
                 </label>
                 <select id="Payee" name="Payee">
                   <option value="" disabled selected hidden>
@@ -438,7 +446,7 @@ export const Dashboard = () => (
                 </select>
                 <br></br>
                 <label for="Amount" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>Amount
+                  <span className="red">*</span>Amount
                 </label>
                 <input
                   type="text"
@@ -461,7 +469,7 @@ export const Dashboard = () => (
             <form>
               <div className="inputFormat">
                 <label for="Account" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>From
+                  <span className="red">*</span>From
                 </label>
                 <select id="Account" name="Account">
                   <option value="" disabled selected hidden>
@@ -473,7 +481,7 @@ export const Dashboard = () => (
                 </select>
                 <br></br>
                 <label for="Account" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>Type
+                  <span className="red">*</span>Type
                 </label>
                 <select id="type" name="type">
                   <option value="" disabled selected hidden>
@@ -484,7 +492,7 @@ export const Dashboard = () => (
                 </select>
                 <br></br>
                 <label for="Amount" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>Amount
+                  <span style={{color: 'red'}}>*</span>Amount
                 </label>
                 <input
                   type="text"
@@ -510,7 +518,7 @@ export const Dashboard = () => (
             <form>
               <div className="inputFormat">
                 <label for="Account" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>From
+                  <span className="red">*</span>From
                 </label>
                 <select id="Account" name="Account">
                   <option value="" disabled selected hidden>
@@ -522,7 +530,7 @@ export const Dashboard = () => (
                 </select>
                 <br></br>
                 <label for="Payee" className="QAlabels">
-                  <span style={{ color: "red" }}>*</span>To
+                  <span className="red">*</span>To
                 </label>
                 <select id="Payee" name="Payee">
                   <option value="" disabled selected hidden>
@@ -532,8 +540,8 @@ export const Dashboard = () => (
                   <option value="Savings">Savings</option>
                 </select>
                 <br></br>
-                <label for="Amount" style="padding-right:20px">
-                  <span style={{ color: "red" }}>*</span>Amount
+                <label for="Amount" style={{paddingRight: "20px"}}>
+                  <span className="red">*</span>Amount
                 </label>
                 <input
                   type="text"
