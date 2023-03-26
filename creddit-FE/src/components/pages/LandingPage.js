@@ -9,19 +9,21 @@ const Wrapper = styled.div`
 }
 
 .banner-container {
-    padding-top: 50px;
+    padding-top: 4.5rem;
     position: relative;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 img {
     width: 400px;
+    padding-top: 50px;
   }
 
 .text-section {
-    padding-top: 85px;
-    padding-left: 300px;
-    max-width: 800px;
+    padding-top: 3.5rem;
+    max-width: 600px;
 }
 
 .heading {
@@ -39,9 +41,7 @@ img {
 }
 
 .landing-image{
-    max-width: 50px;
-    max-height: 50px;
-    padding-right: 355px;
+    max-width: 400px;
 }
 
 .get-started-button {
