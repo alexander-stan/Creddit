@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
             return res.status(400).send({ message: error.details[0].message});
             
 
-        // create account
+        // Find the if a user with inputted email is in db, using User model
         const user = await User.findOne({email: req.body.email });
         
         if (user)
