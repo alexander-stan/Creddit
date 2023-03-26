@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const { cardSchema } = require('./card');
-const { userSchema } = require('./user');
 
 // pw validation
 const passwordComplexity = require("joi-password-complexity");
@@ -12,7 +11,7 @@ const { valid, required } = require('joi');
 
 // define what info should look like in the db
 const accountSchema = new mongoose.Schema({
-    accessCard: { type: String, required: true },
+    accessCard: { type: cardSchema, required: true },
     password: { type: String, required: true },
     cards: [{ type: cardSchema, required: true }], // list of custom type, structure in card.js
 });
@@ -30,9 +29,9 @@ const Account = mongoose.model("account", accountSchema);
 
 
 // check if input is of the appropriate form used for data in db
-const validate = (data) => {
+const validateAccount = (data) => {
     const schema = Joi.object({
-        accessCard: Joi.string().required().label("Access Card"),
+        accessCard: cardSchema.required().label("Access Card"),
         cards: Joi.array().items(cardSchema).required(),
         password: passwordComplexity().required().label("Password")
     });
@@ -41,4 +40,4 @@ const validate = (data) => {
 };
 
 
-module.exports = { Account, validate, accountSchema };
+module.exports = { Account, validateAccount, accountSchema };

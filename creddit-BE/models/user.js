@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const { accountSchema } = require('./account');
+const Joi = require('joi');
+const passwordComplexity = require("joi-password-complexity");
 
 
 
@@ -17,15 +19,15 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("user", userSchema);
 
 // check if input is of the appropriate form used for data in db
-const validate = (data) => {
+const validateUser = (data) => {
     const schema = Joi.object({
         fullName: Joi.string().required().label("Full Name"),
         email: Joi.string().required().label("Email"),
-        password: passwordComplexity().required().label("Password")
+        accounts: Joi.array().items(accountSchema).required().label("Accounts"),
     });
     return schema.validate(data)
 
 };
 
-module.exports = { User, validate };
+module.exports = { User, validateUser };
 

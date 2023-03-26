@@ -13,7 +13,7 @@ const transactionHistorySchema = new mongoose.Schema({
 // define what info should look like in the db
 const cardSchema = new mongoose.Schema({
   id: { type: String, required: true },
-  expireDate: { type: String, required: true },
+  expireDate: { type: Date, required: true },
   balance: { type: Number, required: true },
   transactionHistory: { type: transactionHistorySchema, required: true }, // the type may not be of [String]??
 });
@@ -30,10 +30,10 @@ const validateTransactionHistory = Joi.array().items(Joi.object({
 }));
 
 // Validate the information provided, use custom validate function for transaction history
-const validate = (data) => {
+const validateCard = (data) => {
   const schema = Joi.object({
     id: Joi.string().required(),
-    expireDate: Joi.string().required(),
+    expireDate: Joi.date().required(),
     balance: Joi.number().required(),
     transactionHistory: validateTransactionHistory.required(),
   });
@@ -41,4 +41,4 @@ const validate = (data) => {
   return schema.validate(data);
 };
 
-module.exports = { Card, validate, cardSchema };
+module.exports = { Card, validateCard, cardSchema };
