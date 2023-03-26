@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 // define what info should look like in the db
 const accountSchema = new mongoose.Schema({

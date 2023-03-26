@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 
 // define what info should look like in the db
@@ -13,7 +14,7 @@ const cardSchema = new mongoose.Schema({
 const Card = mongoose.model("card", cardSchema);
 
 
-const validate = (user) => {
+const validate = (data) => {
     const schema = Joi.object({
       id: Joi.string().required(),
       expireDate: Joi.string().required(),
@@ -21,7 +22,7 @@ const validate = (user) => {
       transactionHistory: Joi.array().items(Joi.object()).required(),
     });
   
-    return schema.validate(user);
+    return schema.validate(data);
   };
 
   module.exports = {Card, validate};
