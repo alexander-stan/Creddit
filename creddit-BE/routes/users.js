@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
          const hashPassword = await bcrypt.hash(req.body.password, salt);
             
         // create acccount to be used later in the creation of the user
-        myPrimaryAccount = await new Account({accessCard: myAccessCard, password: hashPassword, cards: []})
+        myPrimaryAccount = await new Account({accessCard: myAccessCard, password: hashPassword, cards: []});
 
         if(error)
             return res.status(400).send({ message: error.details[0].message});
@@ -72,7 +72,7 @@ router.post("/", async (req, res) => {
         const user = await User.findOne({email: req.body.email });
         
         if (user)
-            return res.status(409).send({ message: "User with given email already exists"})
+            return res.status(409).send({ message: "User with given email already exists"});
         
         // save new user to db 
         await new User({...req.body.fullName, email: req.body.email, accounts: [].push(myPrimaryAccount) }).save();
@@ -92,7 +92,7 @@ router.get("/", auth, async (req, res) => {
         res.json(users);
     } catch (error) {
         console.error(err.message);
-        res.status(500).send("Server Error, failed to get users")
+        res.status(500).send("Server Error, failed to get users");
     }
 })
 
