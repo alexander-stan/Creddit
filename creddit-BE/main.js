@@ -96,3 +96,80 @@ for (let i = 0; i < account.getCards().length; i++) {
     el.innerHTML = account.getCards()[i].getIdentifier();
     document.getElementById('PaymentFromAccount').appendChild(el);
 }
+
+function deposit() {
+    var cardId = document.getElementById("DepositFromAccount").value;
+    var amount = parseFloat(document.getElementById("Amount").value);
+  
+    var cards = JSON.parse(localStorage.getItem("cards"));
+    var card = cards.find(function(c) {
+      return c.id === cardId;
+    });
+    if (!card) {
+      alert("Card not found!");
+      return;
+    }
+  
+    card.balance += amount;
+    localStorage.setItem("cards", JSON.stringify(cards));
+    document.getElementById("balance").innerHTML = card.balance;
+  
+    alert("Deposit of $" + amount + " successful!");
+  }
+  
+  function withdraw() {
+    var cardId = document.getElementById("WithdrawFromAccount").value;
+    var amount = parseFloat(document.getElementById("Amount").value);
+  
+    var cards = JSON.parse(localStorage.getItem("cards"));
+    var card = cards.find(function(c) {
+      return c.id === cardId;
+    });
+    if (!card) {
+      alert("Card not found!");
+      return;
+    }
+    if (amount > card.balance) {
+      alert("Insufficient funds!");
+      return;
+    }
+  
+    card.balance -= amount;
+    localStorage.setItem("cards", JSON.stringify(cards));
+    document.getElementById("balance").innerHTML = card.balance;
+  
+    // Display a success message to the user
+    alert("Withdrawal of $" + amount + " successful!");
+  }
+  
+  function transfer() {
+    var fromCardId = document.getElementById("TransferFromAccount").value;
+    var toCardId = document.getElementById("TransferToAccount").value;
+    var amount = parseFloat(document.getElementById("Amount").value);
+  
+    var cards = JSON.parse(localStorage.getItem("cards"));
+    var fromCard = cards.find(function(c) {
+      return c.id === fromCardId;
+    });
+    var toCard = cards.find(function(c) {
+      return c.id === toCardId;
+    });
+  
+    if (!fromCard || !toCard) {
+      alert("One or more cards not found!");
+      return;
+    }
+    if (amount > fromCard.balance) {
+      alert("Insufficient funds!");
+      return;
+    }
+  
+    fromCard.balance -= amount;
+    toCard.balance += amount;
+    localStorage.setItem("cards", JSON.stringify(cards));
+    document.getElementById("balance").innerHTML = fromCard.balance;
+  
+    // Display a success message to the user
+    alert("Transfer of $" + amount + " from " + fromCard.id + " to " + toCard.id + " successful!");
+  }
+  
