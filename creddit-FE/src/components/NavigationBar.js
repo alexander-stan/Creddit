@@ -47,20 +47,20 @@ const Styles = styled.div`
 export const NavigationBar = () => (
   <Styles>
     <Navbar expand="lg">
-      <Navbar.Brand href="/">
+      <Navbar.Brand href="/dashboard">
         <div>
           <img src="logo.jpg" alt="Creddit logo"></img>
         </div>
       </Navbar.Brand>
 
-      <Navbar.Brand href="/">Creddit</Navbar.Brand>
+      <Navbar.Brand href="/dashboard">Creddit</Navbar.Brand>
 
       <Nav className="ml-auto">
         <Nav.Item>
-          <Nav.Link href="/log-in">Log in</Nav.Link>
+          <Nav.Link href="/">Log in</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/get-started">Get Started</Nav.Link>
+          <Nav.Link href="/signup">Get Started</Nav.Link>
         </Nav.Item>
       </Nav>
     </Navbar>
