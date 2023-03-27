@@ -148,3 +148,9 @@ select {
     font-family: formFont;
     box-shadow: 0px 4px 5px #afaeae;
   }
+
+  .tContainer{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+  }
