@@ -28,16 +28,16 @@
                 <h3>User Settings</h3>
                 <form>
                     <div>
-                        <input type="text" id="firstName" pattern="[A-Za-z\\s]*" placeholder="First Name">
-                        <input type="text" id="lastName" pattern="[A-Za-z\\s]*" placeholder="Last Name">
-                        <input type="text" id="email" placeholder="Email">
-                        <input type="text" id="address" placeholder="Address">
-                        <input type="text" id="number" placeholder="Phone Number">
+                        <input type="text"  id="name" name="name" pattern="[A-Za-z\\s]*" placeholder="Name">
+                        <input type="text" id="password" name="password" placeholder="Password">
+                        <input type="text" id="email" name="email" placeholder="Email">
+                        <input type="text" id="address" name="address" placeholder="Address">
+                        <input type="text" id="number" name="number" placeholder="Phone Number">
                     </div>
-                    <button onsubmit="" class="button-3">Update</button>
+                    <button class="button-3" onclick="saveChanges()">Update</button>
                 </form>
+                <script src="settings.js"></script>
             </div>
-
         </div>
     </div>
 </body>
