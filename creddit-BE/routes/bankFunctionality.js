@@ -11,10 +11,6 @@ Withdraw endPoint
 
 How do i access the list of customer? 
 
-
-
-
-
 */
 const router = require("express").Router();
 
@@ -63,8 +59,8 @@ router.post("/", async (req, res) => {
         // connect to db with new info, so it is important to write the use cases?
         
         // this is a template 
-        
-        await User.findOneAndUpdate({ name: 'John' }, { 'address.city': 'New York' }, { new: true }, function(err, doc) {
+
+        await Account.findOneAndUpdate({ 'accessCard.id': 'the id of the card we want to update' }, { 'accessCard.balance': 'New balance' }, { new: true }, function(err, doc) {
             if (err) throw err;
             console.log(doc);
           });
@@ -95,6 +91,10 @@ router.post("/", async (req, res) => {
     
     
         // update db with new info, so it is important to code 
+        await Account.findOneAndUpdate({ 'accessCard.id': 'the id of the card we want to update' }, { 'accessCard.balance': 'New balance' }, { new: true }, function(err, doc) {
+            if (err) throw err;
+            console.log(doc);
+          });
     }
 
 
@@ -107,9 +107,13 @@ router.post("/", async (req, res) => {
         if (!success) {
             return res.status(400).send({ message: "The deposit didn't go through"});
         }
-    
+        
     
         // update db with new info, so its is important to code 
+        await Account.findOneAndUpdate({ 'accessCard.id': 'the id of the card we want to update' }, { 'accessCard.balance': 'New balance' }, { new: true }, function(err, doc) {
+            if (err) throw err;
+            console.log(doc);
+          });
     
     }
 
