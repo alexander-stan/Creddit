@@ -35,19 +35,19 @@
                 <div class="tabs" id="myTabs">
                     <button onclick="showPanel(0)"><span class="button_top btn active">Make a Payment</span></button>
                     <button onclick="showPanel(1)"><span class="button_top btn">Make a Transfer</span></button>
-                    <button onclick="showPanel(2)"><span class="button_top btn">Make a Withdrawl</span></button>
+                    <button onclick="showPanel(2)"><span class="button_top btn">Make a Withdrawal</span></button>
                     <button onclick="showPanel(3)"><span class="button_top btn">Make a Deposit</span></button>   
                 </div>
                 <div class="listOfAccounts">
                     <div class="form tabPanel">
-                        <form>
+                        <form id="makePayment">
                         <div class="inputFormat">
                             <label for="Account" class="QAlabels"><span style="color:red;">*</span>From</label>
-                            <select id="PaymentFromAccount" name="Account">
+                            <select id="PaymentFromAccount" name="PaymentFromAccount">
                                 <option value="" disabled selected hidden>Select Account...</option>
                             </select><br>
                             <label for="Payee" class="QAlabels"><span style="color:red;">*</span>To</label>
-                            <input type="text" id="Payee Email" name="Email" placeholder="example@email.com"><br>
+                            <input type="text" id="Email" name="Email" placeholder="example@email.com"><br>
                             <label for="Amount" class="QAlabels"><span style="color:red;">*</span>Amount</label>
                             <input type="text" id="Amount" name="Amount" placeholder="$Amount">
                         </div>
@@ -55,47 +55,47 @@
                     </form>
                     </div>
                     <div class="form tabPanel">
-                        <form>
+                        <form id="makeTransfer">
                             <div class="inputFormat">
                                 <label for="Account" class="QAlabels"><span style="color:red;">*</span>From</label>
-                                <select id="TransferFromAccount" name="Account">
+                                <select id="TransferFromAccount" name="TransferFromAccount">
                                     <option value="" disabled selected hidden>Select Account...</option>
                                 </select><br>
                                 <label for="Account" class="QAlabels"><span style="color:red;">*</span>To</label>
-                                <select id="TransferToAccount" name="Account">
+                                <select id="TransferToAccount" name="TransferToAccount">
                                     <option value="" disabled selected hidden>Select Account...</option>
                                 </select><br>
                                 <label for="Amount" class="QAlabels"><span style="color:red;">*</span>Amount</label>
                                 <input type="text" id="Amount" name="Amount" placeholder="$ Transfer Amount">
                             </div>
-                            <button><input class="Payment button_top" type="submit" value="Confirm Transfer" style="font-size: 15px; font-weight: bold;"></button>
+                            <button onclick="transfer()"><input class="Payment button_top" type="submit" value="Confirm Transfer" style="font-size: 15px; font-weight: bold;"></button>
                         </form>
                     </div>
                     <div class="tabPanel">
-                        <form>
+                        <form id="makeWithdraw">
                             <div class="inputFormat">
-                                <label for="Account" class="QAlabels"><span style="color:red;">*</span>From</label>
-                                <select id="WithdrawFromAccount" name="Account">
+                                <label for="WithdrawFromAccount" class="QAlabels"><span style="color:red;">*</span>From</label>
+                                <select id="WithdrawFromAccount" name="WithdrawFromAccount">
                                     <option value="" disabled selected hidden>Select Account...</option>
                                 </select><br>
                                 <label for="Amount" class="QAlabels"><span style="color:red;">*</span>Amount</label>
                                 <input type="text" id="Amount" name="Amount" placeholder="$ Withdraw Amount">
                             </div>
-                            <button><input class="Payment button_top" type="submit" value="Confirm Withdraw" style="font-size: 15px; font-weight: bold;"></button>
+                            <button onclick="withdraw()"><input class="Payment button_top" type="submit" value="Confirm Withdraw" style="font-size: 15px; font-weight: bold;"></button>
                             <br><br><br>
                         </form>
                     </div>
                     <div class="tabPanel">
-                        <form>
+                        <form id="makeDeposit">
                             <div class="inputFormat">
                                 <label for="Account" class="QAlabels"><span style="color:red;">*</span>From</label>
-                                <select id="DepositFromAccount" name="Account">
+                                <select id="DepositToAccount" name="DepositToAccount">
                                     <option value="" disabled selected hidden>Select Account...</option>
                                 </select><br>
                                 <label for="Amount" style="padding-right:20px"><span style="color:red;">*</span>Amount</label>
                                 <input type="text" id="Amount" name="Amount" placeholder="$ Deposit Amount">
                             </div>
-                            <button><input class="Payment button_top" type="submit" value="Confirm Deposit" style="font-size: 15px; font-weight: bold;"></button>
+                            <button onclick="deposit()"><input class="Payment button_top" type="submit" value="Confirm Deposit" style="font-size: 15px; font-weight: bold;"></button>
                             <br><br>
                         </form>
                     </div>
