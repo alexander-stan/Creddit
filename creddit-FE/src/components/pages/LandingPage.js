@@ -1,5 +1,6 @@
 import React from "react"
 import styled from 'styled-components'
+import { useNavigate } from "react-router-dom"
 
 const Wrapper = styled.div`
 .landing-container{
@@ -67,8 +68,13 @@ img {
 }
 `;
 
-export const LandingPage = () => (
-    <Wrapper>
+export const LandingPage = () => {
+    const navigate = useNavigate();
+    const routeChange = () => {
+        navigate("/signup");
+    }
+    return (
+        <Wrapper>
         <div className="landing-container">
             <div className="banner-container">
                 <div className="text-section">
@@ -78,7 +84,7 @@ export const LandingPage = () => (
                     <p className="primary-text">
                         Welcome to Creddit! Create an account and gain access to services that will make your online banking experience, safe, easy, and secure.
                     </p>
-                    <button className="get-started-button">
+                    <button className="get-started-button" onClick={routeChange}>
                         Get Started
                     </button>
                 </div>
@@ -88,4 +94,6 @@ export const LandingPage = () => (
             </div>
         </div>
       </Wrapper>
-  )
+    )
+}
+    

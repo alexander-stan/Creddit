@@ -11,6 +11,7 @@ import { PayBills } from "../pages/PayBills";
 import { Accounts } from "../pages/Accounts";
 import { AddAccounts } from "../pages/AddAccounts";
 import { Settings } from "../pages/Settings";
+import { LandingPage } from "../pages/LandingPage"
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         <NavigationBar />
         <Sidebar />
         <Routes>
-          <Route exact path="/" element={<Dashboard />} />
+          <Route exact path="/" element={<LandingPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/accounts" element={<Accounts/>}/>
           <Route path="/pay-bills" element={<PayBills/>}/>
           <Route path="/transfers" element={<Transfers/>}/>
