@@ -103,7 +103,7 @@ form input[type="text"] , [type="password"]{
 export const Login = () => {
 
     const [data, setData] = useState(
-        { email: "", 
+        { accessCard: "", 
         password: "" 
     });
 
@@ -139,31 +139,24 @@ export const Login = () => {
                 <div className='Sign-up-form'>
                     <p className="formHeader">Log In</p>
                     <form>
-                        <label>Email</label>
-
+                        <label>Access Card</label>
                         <input 
-                        
                         type="text"
-                        placeholder="Email"
-						name="email"
+                        placeholder="Access Card"
+						name="accessCard"
 						onChange={handleChange}
-						value={data.email}
+						value={data.accessCard}
 						required
-    
                         />
-
 
                         <label>Password</label>
                         <input 
-                        
                         type="password"
                         placeholder="Password"
                         name="password"
                         onChange={handleChange}
                         value={data.password}
                         required
-                        
-                        
                         />
                         <button type="button" className="create" onClick={handleSubmit}>Log In</button>
                         {error && <p style={{ color: 'red' }}>{error}</p>}

@@ -60,11 +60,11 @@ router.post("/", async (req, res) => {
         
         // this is a template 
 
-        await Account.findOneAndUpdate({ 'accessCard.id': 'the id of the card we want to update' }, { 'accessCard.balance': 'New balance' }, { new: true }, function(err, doc) {
-            if (err) throw err;
-            console.log(doc);
-          });
-        
+       // update db with new info, so its is important to code 
+       await Account.findOneAndUpdate({ 'accessCard.id': req.body.card1.id }, { 'accessCard.balance': 'for this instance get the bal' }, { new: true }, function(err, doc) {
+        if (err) throw err;
+        console.log(doc);
+      });
 
     }
 
@@ -90,8 +90,8 @@ router.post("/", async (req, res) => {
     
     
     
-        // update db with new info, so it is important to code 
-        await Account.findOneAndUpdate({ 'accessCard.id': 'the id of the card we want to update' }, { 'accessCard.balance': 'New balance' }, { new: true }, function(err, doc) {
+         // update db with new info, so its is important to code 
+         await Account.findOneAndUpdate({ 'accessCard.id': req.body.card1.id }, { 'accessCard.balance': 'for this instance get the bal' }, { new: true }, function(err, doc) {
             if (err) throw err;
             console.log(doc);
           });
@@ -110,7 +110,7 @@ router.post("/", async (req, res) => {
         
     
         // update db with new info, so its is important to code 
-        await Account.findOneAndUpdate({ 'accessCard.id': 'the id of the card we want to update' }, { 'accessCard.balance': 'New balance' }, { new: true }, function(err, doc) {
+        await Account.findOneAndUpdate({ 'accessCard.id': req.body.card1.id }, { 'accessCard.balance': 'for this instance get the bal' }, { new: true }, function(err, doc) {
             if (err) throw err;
             console.log(doc);
           });

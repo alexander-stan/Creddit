@@ -4,12 +4,25 @@ const bcrypt = require("bcrypt");
 const Joi = require("joi");
 
 router.post("/", async (req, res) => {
+	/* The issue here is we are dealing with a differnt type of data for verification now
+		
+		We are doing:
+			accesscard number
+			password
+
+		do i change all of this? 
+	
+	
+	*/
+
+
 	try {
         // validate email and password
 		const { error } = validate(req.body);
 		if (error)
 			return res.status(400).send({ message: error.details[0].message });
 
+		
 
         // find user in db, or catch error
 		const user = await User.findOne({ email: req.body.email });

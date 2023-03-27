@@ -38,6 +38,6 @@ class Card {
             const value = parseInt(digit, 10) * (i % 2 ? 2 : 1);
             return sum + (value > 9 ? value - 9 : value);
         }, 0) % 10) % 10;
-        return cardNumb.slice(0, -1) + checkDigit;
+        return cardNumb.slice(0, -1) + checkDigit; // returns string
     }
 }
