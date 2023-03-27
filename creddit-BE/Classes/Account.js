@@ -5,7 +5,6 @@ export default class Account {
         this.access_card = card
         this.password = password;
         this.cards = [];
-        this.cards.push(this.access_card)
     }
 
     // Getter Method(s)
