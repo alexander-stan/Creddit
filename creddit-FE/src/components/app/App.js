@@ -10,6 +10,7 @@ import { Transfers } from "../pages/Transfers";
 import { Accounts } from "../pages/Accounts";
 import { AddAccounts } from "../pages/AddAccounts";
 import { Settings } from "../pages/Settings";
+import { LandingPage } from "../pages/LandingPage"
 import { Login } from "../pages/Login";
 import { Redirect } from "../pages/Redirect";
 import { Signup } from "../pages/Signup";
@@ -20,7 +21,8 @@ function App() {
       <Router>
         <NavigationBar />
         <Routes>
-          <Route exact path="/" element={<Login/>}/>
+          <Route exact path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/accounts" element={<Accounts/>}/>
