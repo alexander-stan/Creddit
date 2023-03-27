@@ -41,12 +41,12 @@ const SidebarItem = styled.div`
 const Sidebar = () => {
   const location = useLocation();
   const items = [
-    { name: "Dashboard", path: "/" },
+    { name: "Dashboard", path: "/dashboard" },
     { name: "Accounts", path: "/accounts"},
-    { name: "Pay Bills", path: "/pay-bills"},
     { name: "Transfers", path: "/transfers"},
     { name: "Add Accounts", path: "/add-accounts"},
     { name: "Settings", path: "/settings" },
+    { name: "Log Out", path: "/"}
 
   ];
 
