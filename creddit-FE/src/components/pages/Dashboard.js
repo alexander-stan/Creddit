@@ -79,7 +79,10 @@ const Styles = styled.div`
   .hover-underline-animation:hover {
     cursor: pointer;
   }
-
+  body{
+    max-width: 100%;
+    margin: 0 auto;
+  }
   .hover-underline-animation::after {
     content: "";
     position: absolute;
@@ -294,14 +297,31 @@ const Styles = styled.div`
   .columnClass {
     flex-direction: column;
   }
-  
 `;
 
-export const Dashboard = () => (
-  <Styles>
-    <div className="logo">
-      <img src="public/image.png" width="500px"></img>
-    </div>
+export const Dashboard = () => {
+var tabButtons = document.querySelectorAll(".tabs button"); 
+var tabPanel = document.querySelectorAll(".tabPanel");
+
+function showPanel(panelIndex){
+    tabPanel.forEach(function(node) {
+        node.style.display="none";
+    });
+    tabPanel[panelIndex].style.display="block";
+}
+
+for (var i = 0; i < tabButtons.length; i++) {
+  tabButtons[i].addEventListener("click", function() {
+    var panelIndex = this.getAttribute("data-panel-index");
+    showPanel(panelIndex);
+    var current = document.querySelector(".tabs button.active");
+    current.className = current.className.replace(" active", "");
+    this.className += " active";
+  });
+}
+  return (
+    <Styles>
+    <script src={"myScript.js"}></script>
     <div className="container">
       <div className="QuickActions">
         <div className="QuickPoT">
@@ -335,20 +355,23 @@ export const Dashboard = () => (
           </div>
         </div>
 
-        <div className="tabs" id="myTabs">
-          <button onclick="showPanel(0)">
-            <span className="button_top btn active">Make a Payment</span>
-          </button>
-          <button onclick="showPanel(1)">
-            <span className="button_top btn">Make a Transfer</span>
-          </button>
-          <button onclick="showPanel(2)">
-            <span className="button_top btn">Make a Withdrawl</span>
-          </button>
-          <button onclick="showPanel(3)">
-            <span className="button_top btn">Make a Deposit</span>
-          </button>
-        </div>
+        <div class="tabs" id="myTabs">
+  <button data-panel-index="0" class="active">
+    <span class="button_top btn active">Make a Payment</span>
+  </button>
+  <button data-panel-index="1">
+    <span class="button_top btn">Make a Transfer</span>
+  </button>
+  <button data-panel-index="2">
+    <span class="button_top btn">Make a Withdrawal</span>
+  </button>
+  <button data-panel-index="3">
+    <span class="button_top btn">Make a Deposit</span>
+  </button>
+</div>
+
+
+
         <div className="listOfAccounts">
           <div className="form tabPanel">
             <form>
@@ -699,6 +722,12 @@ export const Dashboard = () => (
         </div>
       </div>
     </div>
-    <script src="myScript.js"></script>
   </Styles>
 );
+}
+
+
+
+
+
+
