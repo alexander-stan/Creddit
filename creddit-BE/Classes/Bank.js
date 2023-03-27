@@ -5,9 +5,12 @@ import CreditCard from "./CreditCard.js"
 
 export default class Bank {
     constructor() {
-        this.customers = []
+        this.customers = [];
         this.loadCustomers();
     }
+
+    // Getter Method(s)
+    getCustomers() { return this.customers; }
 
     transfer(card1,card2,amount) {
         // Check if card1 is a Card object (Debit or Credit)
@@ -95,7 +98,7 @@ export default class Bank {
     // Create a brand new Customer Object
     createCustomer(name,email,password) {
         // Create Main Card, Account, and Customer (Link them)
-        let card = new DebitCard(1000);
+        let card = new DebitCard();
         let account = new Account(password,card);
         let customer = new Customer(name,email,account);
 
@@ -146,11 +149,11 @@ export default class Bank {
         return card;
     }
 
-    getCardByEmail(email) {
-        // Look for a customer by that email (so we can E-Transfer)
-        for (const customer in customers) {
-            if (customer.getEmail() == email) {
-                return customer.getPrimaryAccount();
+    getAccountByEmail(email) {
+        // Look for a customer by that email (so we can E-Transfer payment)
+        for (let i = 0 ; i < this.customers.length ; i++) {
+            if (this.customers[i].getEmail() == email) {
+                return this.customers[i].getPrimaryAccount();
             }
         }
         return null;

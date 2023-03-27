@@ -20,6 +20,7 @@ export default function runTestCases(bank) {
     let customer = new Customer("Mike Test","mike@example.com",account);
 
     // Create Credit Card
+
     currCase++; try { 
         assert(bank.createCreditCard(customer, 1500, 0.05) == null); 
     } catch (error) { failedCases++,console.error(currCase,"1st PARAM not a Valid Account"); }
@@ -37,6 +38,7 @@ export default function runTestCases(bank) {
     } catch (error) { failedCases++,console.error(currCase,"VALID CreditCard not created properly"); }
 
     // Create Debit Card
+
     currCase++; try { 
         assert(bank.createDebitCard(customer, 1500) == null); 
     } catch (error) { failedCases++,console.error(currCase,"1st PARAM not a Valid Account"); }
@@ -51,6 +53,7 @@ export default function runTestCases(bank) {
     } catch (error) { failedCases++,console.error(currCase,"VALID DebitCard not created properly"); }
 
     // Deposit (Debit)
+
     d_card.setBalance(0);
     currCase++; try {
         bank.deposit(d_card,500);
@@ -67,6 +70,7 @@ export default function runTestCases(bank) {
     } catch (error) { failedCases++,console.error(currCase,"Number not passed properly"); }
 
     // Deposit (Credit)
+
     c_card.setBalance(100);
     currCase++; try {
         bank.deposit(c_card,500);
@@ -74,6 +78,7 @@ export default function runTestCases(bank) {
     } catch (error) { failedCases++,console.error(currCase,"Credit Deposit amount was not properly added"); }
 
     // Withdraw (Debit)
+
     d_card.setBalance(1100); // Set Balance
     currCase++; try {
         assert(bank.withdraw(d_card,1001) == false);
@@ -96,6 +101,7 @@ export default function runTestCases(bank) {
     } catch (error) { failedCases++,console.error(currCase,"Number not passed properly"); }
 
     // Withdraw (Credit)
+
     c_card.setBalance(100); // Set Balance
     currCase++; try {
         assert(bank.withdraw(c_card,901) == false);
@@ -105,8 +111,12 @@ export default function runTestCases(bank) {
         assert(c_card.getBalance() == 500);
     } catch (error) { failedCases++,console.error(currCase,"Credit Withdraw amount was not properly removed"); }
 
-    // Transaction History
+    // Card Test Cases
+
     currCase++; try {
+        assert(d_card.generateCardNumber().length == 16);
+    } catch (error) { failedCases++,console.error(currCase,"Generate Random Card Number"); }
+        currCase++; try {
         assert(d_card.getTransactionHistory().length == 2);
     } catch (error) { failedCases++,console.error(currCase,"Debit transaction history not properly updated"); }
     currCase++; try {
@@ -114,6 +124,7 @@ export default function runTestCases(bank) {
     } catch (error) { failedCases++,console.error(currCase,"Credit transaction history not properly updated"); }
 
     // Transfer
+
     d_card.setBalance(500); // Set Balance
     c_card.setBalance(500); // Set Balance
 
@@ -163,5 +174,70 @@ export default function runTestCases(bank) {
         assert(bank.transfer(d_card,c_card,"100") == false);
     } catch (error) { failedCases++,console.error(currCase,"Invalid 3rd Argument"); }
 
+    // Debit Card Test Cases
+
+    let test_debit_card = new DebitCard();
+
+    currCase++; try {
+        assert(test_debit_card.getTransactionLimit() == 500);
+    } catch (error) { failedCases++,console.error(currCase,"Default Transaction Limit for Debit"); }
+    currCase++; try {
+        test_debit_card.setTransactionLimit(750);
+        assert(test_debit_card.getTransactionLimit() == 750);
+    } catch (error) { failedCases++,console.error(currCase,"Setting Transaction Limit for Debit"); }
+
+    // Credit Card Test Cases
+
+    let test_credit_card = new CreditCard();
+
+    currCase++; try {
+        assert(test_credit_card.getCreditLimit() == 1500);
+    } catch (error) { failedCases++,console.error(currCase,"Default Credit Limit for Credit"); }
+    currCase++; try {
+        assert(test_credit_card.getInterestRate() == 0.12);
+    } catch (error) { failedCases++,console.error(currCase,"Default Interest Rate for Credit"); }
+    currCase++; try {
+        test_credit_card.setCreditLimit(1000);
+        assert(test_credit_card.getCreditLimit() == 1000);
+    } catch (error) { failedCases++,console.error(currCase,"Setting Credit Limit for Credit"); }
+    currCase++; try {
+        test_credit_card.setInterestRate(0.22);
+        assert(test_credit_card.getInterestRate() == 0.22);
+    } catch (error) { failedCases++,console.error(currCase,"Setting Credit Limit for Credit"); }
+
+    // Customer Test Cases
+
+    currCase++; try {
+        customer.setEmail("new@example.com");
+        assert(customer.getEmail() == "new@example.com");
+    } catch (error) { failedCases++,console.error(currCase,"Changing Customer Email"); }
+    currCase++; try {
+        customer.setUsername("John Dev");
+        assert(customer.getUsername() == "John Dev");
+    } catch (error) { failedCases++,console.error(currCase,"Changing Customer Name"); }
+
+    // Account Test Cases
+
+    currCase++; try {
+        account.setPassword("Test123");
+        assert(account.getPassword() == "Test123");
+    } catch (error) { failedCases++,console.error(currCase,"Changing Account Password"); }
+
+    currCase++; try {
+        account.addCard(test_debit_card);
+        assert(account.getCards().includes(test_debit_card) == true);
+    } catch (error) { failedCases++,console.error(currCase,"Adding Card from Account"); }
+    currCase++; try {
+        account.removeCard(test_debit_card);
+        assert(account.getCards().includes(test_debit_card) == false);
+    } catch (error) { failedCases++,console.error(currCase,"Removing Card from Account"); }
+
+    // Get Account by Email
+
+    currCase++; try {
+        bank.getCustomers().push(customer);
+        assert(bank.getAccountByEmail("new@example.com") == account);
+    } catch (error) { failedCases++,console.error(currCase,"Getting an Account by Email to make a Payment"); }
+    
     console.log("Test Cases Passed: ",(currCase-failedCases),"/",currCase);
 }

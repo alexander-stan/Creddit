@@ -13,6 +13,6 @@ export default class Customer {
     getEmail() { return this.email; }
 
     // Setter Method(s)
-    setPassword(username) { this.username = username; }
+    setUsername(username) { this.username = username; }
     setEmail(email) { this.email = email; }
 }
