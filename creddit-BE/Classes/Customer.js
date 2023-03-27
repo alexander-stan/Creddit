@@ -4,6 +4,9 @@ export default class Customer {
     constructor(username,email,account) {
         this.username = username;
         this.email = email;
+        if (!(account instanceof Account)) {
+            throw new Error("The account parameter must be an instance of the Account class");
+        }
         this.primaryAccount = account;
     }
 

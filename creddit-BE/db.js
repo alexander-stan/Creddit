@@ -1,4 +1,3 @@
-// kinda like includes
 const mongoose = require("mongoose");
 
 module.exports = () => {
@@ -7,12 +6,11 @@ module.exports = () => {
         useUnifiedTopology: true,
     };
 
-    try {
-        mongoose.connect(process.env.DB, connectionParams);
-        console.log("Connected to database")
-    } catch (error) {
-        console.log("could not connect to database")
-
-    }
-
+    mongoose.connect(process.env.DB, connectionParams)
+        .then(() => {
+            console.log("Connected to database");
+        })
+        .catch((err) => {
+            console.log("Could not connect to database", err);
+        });
 }

@@ -2,6 +2,9 @@ import DebitCard from "./DebitCard.js"
 
 export default class Account {
     constructor(password,card) {
+        if (!(card instanceof DebitCard)) {
+            throw new Error("The card parameter must be an instance of the DebitCard class.");
+        }
         this.access_card = card
         this.password = password;
         this.cards = [];

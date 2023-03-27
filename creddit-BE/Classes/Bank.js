@@ -99,10 +99,14 @@ export default class Bank {
                 console.error(err);
             } else {
                 console.log(users); // do stuff with users
-                
                 // iterate through the list of users and start creating customers 
                 // dont create customer, 
                 // how to iterate through a list in js?
+                users.forEach((user) => {
+                    const card = new DebitCard(user.card.balance);
+                    const account = new Account(user.account.password, card);
+                    
+                })
             }
 
 

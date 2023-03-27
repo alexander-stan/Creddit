@@ -1,4 +1,4 @@
-export default class Card {
+class Card {
     constructor(cardNum="") {
         if (cardNum == "") {
             this.identifier = this.generateCardNumber();
