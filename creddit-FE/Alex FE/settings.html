@@ -25,18 +25,29 @@
     <div class="block-group">
         <div class="block">
             <div class="group">
-                <h3>User Settings</h3>
+                <h3>Password Settings</h3><br><br>
                 <form>
                     <div>
-                        <input type="text"  id="name" name="name" pattern="[A-Za-z\\s]*" placeholder="Name">
-                        <input type="text" id="password" name="password" placeholder="Password">
-                        <input type="text" id="email" name="email" placeholder="Email">
-                        <input type="text" id="address" name="address" placeholder="Address">
-                        <input type="text" id="number" name="number" placeholder="Phone Number">
-                    </div>
-                    <button class="button-3" onclick="saveChanges()">Update</button>
+                        <h4>Password: </h4>
+                        <input type="text" id="password" name="password" placeholder="Enter Password">
+                        <input type="text" id="password" name="password" placeholder="Enter New Password">
+                        <input type="text" id="password" name="password" placeholder="Confirm New Password">
+                        <button class="button-3" onclick="saveChanges()">Update Password</button>
                 </form>
-                <script src="settings.js"></script>
+            </div>
+        </div>
+    </div>
+    <div class="block-group">
+        <div class="block">
+            <div class="group">
+                <h3>Email Settings</h3><br><br>
+                <form>
+                    <div>
+                        <h4>Current Email: XXXX@something.com</h4>
+                        <input type="text" id="email" name="email" placeholder="Enter New Email">
+                        <input type="text" id="password" name="password" placeholder="Confirm New Email">
+                        <button class="button-3" onclick="saveChanges()">Update Email</button>
+                </form>
             </div>
         </div>
     </div>
