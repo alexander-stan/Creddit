@@ -1,8 +1,6 @@
 //** NOTES: Does a user belong to an account or whats the difference between a user and an account, we already have users stored in our db, do we need to store accounts in db */
 //** THIS FILE MAY BE DELETED IF DEEMED USELESS */
 
-
-
 const router = require("express").Router();
 const {Account, validate} = require("../models/account");// user model for db access 
 const bcrypt = require("bcrypt"); // used for hashing passwords
@@ -20,7 +18,7 @@ router.post("/", async (req, res) => {
         // create account
         const account = await Account.findOne({accessCard: req.body.accessCard }); 
         
-        if (user)
+        if (account)
             return res.status(409).send({ message: "Account with given email already exists"})
 
         
@@ -29,7 +27,7 @@ router.post("/", async (req, res) => {
         const hashPassword = await bcrypt.hash(req.body.password, salt);
 
         // save new user to db 
-        await new User({...req.body, password: hashPassword}).save();
+        await new account({...req.body, password: hashPassword}).save();
 
 
         res.status(201).send({message: "User created successfully"});

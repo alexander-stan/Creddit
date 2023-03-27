@@ -85,6 +85,7 @@ router.post("/", async (req, res) => {
     }
 });
 
+// This function loads all users from the db and send it to the front end, in json format
 router.get("/", auth, async (req, res) => {
     try {
         const users = await User.find().select("-password");

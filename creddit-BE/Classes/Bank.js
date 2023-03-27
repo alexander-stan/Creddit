@@ -10,6 +10,7 @@ export default class Bank {
         this.loadAccounts();
     }
 
+    
     transfer(card1,card2,amount) {
         // Check if card1 is a Card object (Debit or Credit)
         if (typeof(card1) != 'object' || (card1.constructor.name != 'DebitCard' && card1.constructor.name != 'CreditCard')) {
@@ -92,30 +93,36 @@ export default class Bank {
 
     // This function will load existing customers from the DB
     loadCustomers() {
-
+        
         // Get all users from the database from "collection", folder users
         User.find({}, (err, users) => {
-            if (err) {
-                console.error(err);
-            } else {
-                console.log(users); // do stuff with users
-                // iterate through the list of users and start creating customers 
-                // dont create customer, 
-                // how to iterate through a list in js?
-                users.forEach((user) => {
-                    const card = new DebitCard(user.card.balance);
-                    const account = new Account(user.account.password, card);
-                    
-                })
-            }
-
-
-        });    
-        
-        
-        // use the customer.js's constructor to create and add all the customers to this.customer list
-            // how to access the account now? is it 
-    }
+          if (err) {
+            console.error(err);
+          } else {
+            // iterate through the list of users and create a customer for each user
+            users.forEach((user) => {
+              // create main card and account
+              let card = new DebitCard(user.card.balance);
+              let account = new Account(user.account.password, card);
+      
+              // create customer and add to customers array
+              let customer = new Customer(user.name, user.email, account);
+              this.customers.push(customer);
+      
+              // add other cards to account if available
+              user.cards.forEach((cardData) => {
+                if (cardData.type === 'credit') {
+                  let creditCard = new CreditCard(cardData.creditLimit, cardData.interestRate);
+                  account.addCard(creditCard);
+                } else {
+                  let debitCard = new DebitCard(cardData.balance);
+                  account.addCard(debitCard);
+                }
+              });
+            });
+          }
+        });
+      }
 
     
     // ** save to db  ********* //
