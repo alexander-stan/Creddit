@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="settings.css">
+    <title>Settings</title>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <img src="https://p7.hiclipart.com/preview/1001/743/638/american-bullfrog-red-eyed-tree-frog-frog.jpg"
+                width="150px">
+        </div>
+        <ul>
+            <li><a href="/settings">Settings</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Log Out</a></li>
+        </ul>
+    </nav>
+
+    <div class="block-group">
+        <div class="block">
+            <div class="group">
+                <h3>User Settings</h3>
+                <form>
+                    <div>
+                        <input type="text"  id="name" name="name" pattern="[A-Za-z\\s]*" placeholder="Name">
+                        <input type="text" id="password" name="password" placeholder="Password">
+                        <input type="text" id="email" name="email" placeholder="Email">
+                        <input type="text" id="address" name="address" placeholder="Address">
+                        <input type="text" id="number" name="number" placeholder="Phone Number">
+                    </div>
+                    <button class="button-3" onclick="saveChanges()">Update</button>
+                </form>
+                <script src="settings.js"></script>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
