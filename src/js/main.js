@@ -5,7 +5,6 @@ import DebitCard from "./DebitCard.js";
 import CreditCard from "./CreditCard.js";
 import runTestCases from "./Test/Test.js";
 
-// runTestCases(bank);
 let bank = new Bank();
 // runTestCases(bank);
 
@@ -18,26 +17,24 @@ if (window.location.href.includes("detailedview.html")) {
         document.getElementById("trans-limit").innerHTML = "$" + act.transaction_limit;
     } else {
         document.getElementById("debit").style.display = "none";
-        document.getElementById("credit-limit").innerHTML = "$" + act.credit;
+        document.getElementById("credit-limit").innerHTML = "$" + act.credit_limit;
     }
     let trans_history = act.transaction_history;
     if (trans_history.length == 0) {
         document.getElementById("t-history").innerHTML = "No transaction history to display";
     } else {
         for (let i = 0; i < trans_history.length; i++) {
-            for (let j = 0; j < trans_history.length; j++) {
-                let row = document.createElement("div");
-                row.classList.add("row");
-                let date = document.createElement("p");
-                // convert date to March 23, 2020 @ 12:00:00 AM
-                date.innerHTML = trans_history[i][j+1].split(',').join(' @');
-                let amount = document.createElement("p");
-                amount.classList.add("bold");
-                amount.innerHTML = "$" + trans_history[i][j];
-                row.appendChild(date);
-                row.appendChild(amount);
-                document.getElementById("t-history").appendChild(row);
-            }
+			let row = document.createElement("div");
+			row.classList.add("row");
+			let date = document.createElement("p");
+			// convert date to March 23, 2020 @ 12:00:00 AM
+			date.innerHTML = trans_history[i][1].split(',').join(' @');
+			let amount = document.createElement("p");
+			amount.classList.add("bold");
+			amount.innerHTML = "$" + trans_history[i][0];
+			row.appendChild(date);
+			row.appendChild(amount);
+			document.getElementById("t-history").appendChild(row);
         }
     }
 }
@@ -106,11 +103,8 @@ if (window.location.href.includes("signup.html")) {
 
 if (window.location.href.includes("dashboard.html")) {
 	let cust = bank.getCustomerByEmail(sessionStorage.getItem("email"));
-	console.log("Loaded Customer: ", cust);
 	let acc = cust.getPrimaryAccount();
-	console.log("Loaded Account: ", acc);
 	let pCard = acc.getAccessCard();
-	console.log("Loaded Access Card: ", pCard);
 
 	if (sessionStorage.getItem("email") == null) {
 		window.location.href = "login.html";
@@ -125,37 +119,37 @@ if (window.location.href.includes("dashboard.html")) {
 	updateDebit(pCard, acc);
 
 	// Add Credit Cards to List of Accounts
-	updateCredit(pCard, acc);
+	updateCredit(acc);
 
 	// Fill the Quick Action form
 	fillForm(acc, pCard);
 
 	// Add Credit and Debit Card Buttons
 	document.getElementById("addDebit").addEventListener("click", function (event) {
-		bank.createDebitCard(acc,500);
+		bank.createDebitCard(cust,500);
 		updateDebit(pCard, acc);
-		updateCredit(pCard, acc);
+		updateCredit(acc);
 		fillForm(acc, pCard);
 	});
 
 	document.getElementById("addCredit").addEventListener("click", function (event) {
-		bank.createCreditCard(acc,1500,0.12);
+		bank.createCreditCard(cust,1500,0.12);
 		updateDebit(pCard, acc);
-		updateCredit(pCard, acc);
+		updateCredit(acc);
 		fillForm(acc, pCard);
 	});
 
 	document.getElementById("removeDebit").addEventListener("click", function (event) {
-		acc.removeCard('DebitCard');
+		bank.removeCardFromCustomer(cust,'DebitCard');
 		updateDebit(pCard, acc);
-		updateCredit(pCard, acc);
+		updateCredit(acc);
 		fillForm(acc, pCard);
 	});
 
 	document.getElementById("removeCredit").addEventListener("click", function (event) {
-		acc.removeCard('CreditCard');
+		bank.removeCardFromCustomer(cust,'CreditCard');
 		updateDebit(pCard, acc);
-		updateCredit(pCard, acc);
+		updateCredit(acc);
 		fillForm(acc, pCard);
 	});
 
@@ -172,20 +166,46 @@ if (window.location.href.includes("dashboard.html")) {
 		const formData = new FormData(formPayment1);
 		const paccount = formData.get("PaymentFromAccount");
 		const email = formData.get("Email");
-		const amount = formData.get("Amount");
+		const amount = formData.get("Amount1");
+
+		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+		if (email == null) {
+			document.getElementById("Email").style.borderColor = "red";
+		} else {
+			if (email.match(mailformat)){
+				document.getElementById("Email").style.borderColor = "black";
+			}
+			else{
+				document.getElementById("Email").style.borderColor = "red";
+			}
+		}
+
+		if (paccount == null) {
+			document.getElementById("PaymentFromAccount").style.borderColor = "red";
+		} else {
+			document.getElementById("PaymentFromAccount").style.borderColor = "black";
+		}
 
 		let accCard = acc.getCardByNumber(paccount);
-		const payee = bank.getAccountByEmail(email);
+		let cust = bank.getCustomerByEmail(email);
+		let payee = cust.getPrimaryAccount();
 
 		if (payee != null) {
-			const pCard = payee.getAccessCard();
-			console.log(bank.transfer(accCard, pCard, parseFloat(amount)));
-			console.log(accCard);
-			console.log(pCard);
+			let pCard = payee.getAccessCard();
+			bank.transfer(accCard, pCard, parseFloat(amount));
+			
+			var reg = /^[0-9]+([.][0-9]+)?([0-9]+)?$/;
+			if (amount.match(reg)){
+				document.getElementById("Amount1").style.borderColor = "black";
+			}
+			else{
+				document.getElementById("Amount1").style.borderColor = "red";
+			}
 		}
 
 		updateDebit(pCard, acc);
-		updateCredit(pCard, acc);
+		updateCredit(acc);
 	});
 
 	var form2 = document.getElementById("makeTransfer");
@@ -200,15 +220,36 @@ if (window.location.href.includes("dashboard.html")) {
 		const formData = new FormData(formPayment2);
 		const fromAccount = formData.get("TransferFromAccount");
 		const toAccount = formData.get("TransferToAccount");
-		const amount = formData.get("Amount");
+		const amount = formData.get("Amount2");
+
+		if (fromAccount == null){
+			document.getElementById("TransferFromAccount").style.borderColor = "red";
+
+		}else{
+			document.getElementById("TransferFromAccount").style.borderColor = "black";
+		}
+
+		if (toAccount == null){
+			document.getElementById("TransferToAccount").style.borderColor = "red";
+
+		}else{
+			document.getElementById("TransferToAccount").style.borderColor = "black";
+		}
 
 		let accCard = acc.getCardByNumber(fromAccount);
 		let payee = acc.getCardByNumber(toAccount);
 
-		console.log(bank.transfer(accCard, payee, parseFloat(amount)));
+		var reg = /^[0-9]+([.][0-9]+)?([0-9]+)?$/;
+		if (amount.match(reg)){
+			bank.transfer(accCard, payee, parseFloat(amount));
+			document.getElementById("Amount2").style.borderColor = "black";
+		}
+		else{
+			document.getElementById("Amount2").style.borderColor = "red";
+		}
 
 		updateDebit(pCard, acc);
-		updateCredit(pCard, acc);
+		updateCredit(acc);
 	});
 
 	var form3 = document.getElementById("makeWithdraw");
@@ -222,14 +263,28 @@ if (window.location.href.includes("dashboard.html")) {
 	formPayment3.addEventListener("submit", function (event) {
 		const formData = new FormData(formPayment3);
 		const fromAccount = formData.get("WithdrawFromAccount");
-		const amount = formData.get("Amount");
+		const amount = formData.get("Amount3");
 
-		let accCard = account.getCardByNumber(fromAccount);
+		let accCard = acc.getCardByNumber(fromAccount);
 
-		console.log(bank.withdraw(accCard, parseFloat(amount)));
+		if (fromAccount == null){
+			document.getElementById("WithdrawFromAccount").style.borderColor = "red";
+
+		}else{
+			document.getElementById("WithdrawFromAccount").style.borderColor = "black";
+		}
+
+		var reg = /^[0-9]+([.][0-9]+)?([0-9]+)?$/;
+		if (amount.match(reg)){
+			bank.withdraw(accCard, parseFloat(amount));
+			document.getElementById("Amount3").style.borderColor = "black";
+		}
+		else{
+			document.getElementById("Amount3").style.borderColor = "red";
+		}
 
 		updateDebit(pCard, acc);
-		updateCredit(pCard, acc);
+		updateCredit(acc);
 	});
 
 	var form4 = document.getElementById("makeDeposit");
@@ -243,14 +298,28 @@ if (window.location.href.includes("dashboard.html")) {
 	formPayment4.addEventListener("submit", function (event) {
 		const formData = new FormData(formPayment4);
 		const fromAccount = formData.get("DepositToAccount");
-		const amount = formData.get("Amount");
+		const amount = formData.get("Amount4");
+
+		if (fromAccount == null){
+			document.getElementById("DepositToAccount").style.borderColor = "red";
+
+		}else{
+			document.getElementById("DepositToAccount").style.borderColor = "black";
+		}
 
 		let accCard = acc.getCardByNumber(fromAccount);
 
-		console.log(bank.deposit(accCard, parseFloat(amount)));
+		var reg = /^[0-9]+([.][0-9]+)?([0-9]+)?$/;
+		if (amount.match(reg)){
+			bank.deposit(accCard, parseFloat(amount));
+			document.getElementById("Amount4").style.borderColor = "black";
+		}
+		else{
+			document.getElementById("Amount4").style.borderColor = "red";
+		}
 
 		updateDebit(pCard, acc);
-		updateCredit(pCard, acc);
+		updateCredit(acc);
 	});
 }
 
@@ -322,7 +391,7 @@ function updateDebit(pCard, acc) {
 		'<div class="accountSum"><div class="accountDesc"><div style="flex-direction: column;"><p class="accountType">Access Card</p><p><a href="../detailedview.html" id="' + pCard.getIdentifier() + '" class="accountNum ">' +
 		pCard.getIdentifier() +
 		'</a></p></div><p class="accountBal">' +
-		pCard.getBalance() +
+		parseFloat(pCard.getBalance().toFixed(2)) +
 		" CAD</p></div></div>";
 	debitCards.appendChild(el);
 
@@ -338,7 +407,7 @@ function updateDebit(pCard, acc) {
 				'<div class="accountSum"><div class="accountDesc"><div style="flex-direction: column;"><p class="accountType">Debit</p><p><a href="../detailedview.html" id="' + acc.getCards()[i].getIdentifier() + '" class="accountNum  hover-underline-animation">' +
 				acc.getCards()[i].getIdentifier() +
 				'</a></p></div><p class="accountBal">' +
-				acc.getCards()[i].getBalance() +
+				parseFloat(acc.getCards()[i].getBalance().toFixed(2)) +
 				" CAD</p></div></div>";
 			debitCards.appendChild(el);
             document.getElementById(acc.getCards()[i].getIdentifier()).addEventListener("click", function(i) {
@@ -350,7 +419,7 @@ function updateDebit(pCard, acc) {
 	}
 }
 
-function updateCredit(pCard, acc) {
+function updateCredit(acc) {
 	document.getElementById("creditAccounts").innerHTML = "";
 	for (let i = 0; i < acc.getCards().length; i++) {
 		if (acc.getCards()[i].constructor.name == "CreditCard") {
@@ -360,7 +429,7 @@ function updateCredit(pCard, acc) {
 				'<div class="accountSum"><div class="accountDesc"><div style="flex-direction: column;"><p class="accountType">Credit</p><p><a href="../detailedview.html" id="' + acc.getCards()[i].getIdentifier() + '" class="accountNum hover-underline-animation">' +
 				acc.getCards()[i].getIdentifier() +
 				'</a></p></div><p class="accountBal">' +
-				acc.getCards()[i].getBalance() +
+				parseFloat(acc.getCards()[i].getBalance().toFixed(2)) +
 				" CAD</p></div></div>";
 			debitCards.appendChild(el);
             document.getElementById(acc.getCards()[i].getIdentifier()).addEventListener("click", function(i) {

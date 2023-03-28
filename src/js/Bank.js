@@ -70,15 +70,19 @@ export default class Bank {
 			return false;
 		}
 
+		amount = parseFloat(amount.toFixed(2));
+
 		if (card.constructor.name == "DebitCard") {
 			// Set the balance of the card
 			card.setBalance(card.getBalance() + amount);
 			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),amount);
+			localStorage.setItem('customers', JSON.stringify(this.customers));
 		} else {
 			// Credit Card
 			// Set the balance of the card
 			card.setBalance(card.getBalance() - amount);
 			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),-amount);
+			localStorage.setItem('customers', JSON.stringify(this.customers));
 		}
 		return card;
 	}
@@ -103,6 +107,8 @@ export default class Bank {
 			return false;
 		}
 
+		amount = parseFloat(amount.toFixed(2));
+
 		if (card.constructor.name == "DebitCard") {
 			// Ensure the card has funds and the transaction is not past its limit
 			if (card.getBalance() < amount || card.getTransactionLimit() < amount) {
@@ -112,6 +118,7 @@ export default class Bank {
 			// Set the balance of the card
 			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),-amount);
 			card.setBalance(card.getBalance() - amount);
+			localStorage.setItem('customers', JSON.stringify(this.customers));
 		} else {
 			// Credit Card
 			// Ensure the card is not being used past its Credit limit
@@ -122,6 +129,7 @@ export default class Bank {
 			// Set the balance of the card
 			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),amount);
 			card.setBalance(card.getBalance() + amount);
+			localStorage.setItem('customers', JSON.stringify(this.customers));
 		}
 
 		return card;
@@ -141,7 +149,20 @@ export default class Bank {
 
 				let account = new Account(retrievedCustomers[i].primaryAccount.password,access_card);
 				for (let j = 0; j < retrievedCustomers[i].primaryAccount.cards.length; j++) {
-					console.log("lol");
+					if (retrievedCustomers[i].primaryAccount.cards[j].credit_limit == undefined) {
+						let debit = new DebitCard();
+						debit.setIdentifier(retrievedCustomers[i].primaryAccount.cards[j].identifier);
+						debit.setBalance(retrievedCustomers[i].primaryAccount.cards[j].balance);
+						debit.setTransactionLimit(retrievedCustomers[i].primaryAccount.cards[j].transaction_limit);
+						account.addCard(debit);
+					} else {
+						let credit = new CreditCard();
+						credit.setIdentifier(retrievedCustomers[i].primaryAccount.cards[j].identifier);
+						credit.setBalance(retrievedCustomers[i].primaryAccount.cards[j].balance);
+						credit.setCreditLimit(retrievedCustomers[i].primaryAccount.cards[j].credit_limit);
+						credit.setInterestRate(retrievedCustomers[i].primaryAccount.cards[j].interest_rate);
+						account.addCard(credit);
+					}
 				}
 				this.customers.push(new Customer(retrievedCustomers[i].username,retrievedCustomers[i].email,account));
 			}
@@ -149,8 +170,45 @@ export default class Bank {
 		return this.customers;
 	}
 
+	addCardToCustomer(customer,card) {
+		if (customer == null || card == null) {
+			return false;
+		}
+
+		if (typeof(customer) != 'object' || customer.constructor.name != 'Customer') {
+			return false;
+		}
+
+		if (typeof(card) != 'object' || (card.constructor.name != 'DebitCard' && card.constructor.name != 'CreditCard')) {
+			return false;
+		}
+
+		customer.getPrimaryAccount().addCard(card);
+		localStorage.setItem('customers', JSON.stringify(this.customers));
+		return true;
+	}
+
+	removeCardFromCustomer(customer,type) {
+		if (type == 'DebitCard') {
+			customer.getPrimaryAccount().removeCard(type);
+			localStorage.setItem('customers', JSON.stringify(this.customers));
+			return true;
+		} else if (type == 'CreditCard') {
+			customer.getPrimaryAccount().removeCard(type);
+			localStorage.setItem('customers', JSON.stringify(this.customers));
+			return true;
+		}
+		return false;
+	}
+
 	// Create a brand new Customer Object
 	createCustomer(name, email, password) {
+		for (let i = 0; i < this.customers.length; i++) {
+			if (this.customers[i].getEmail() == email) {
+				return null;
+			}
+		}
+
 		// Create Main Card, Account, and Customer (Link them)
 		let card = new DebitCard();
 		let account = new Account(password, card);
@@ -165,20 +223,9 @@ export default class Bank {
 		return customer;
 	}
 
-	createCreditCard(account, credit_limit, interest_rate) {
-        // Ensure account only has 5 Credit Cards
-		let counter = 0;
-		for (let i = 0; i < account.cards.length; i++) {
-			if (account.getCards()[i].constructor.name == 'CreditCard') {
-				counter += 1;
-			}
-		}
-        if (counter == 5) {
-            return null;
-        }
-
+	createCreditCard(customer, credit_limit, interest_rate) {
 		// Check if the account passed in is an Account object
-		if (typeof account != "object" || account.constructor.name != "Account") {
+		if (typeof customer != "object" || customer.constructor.name != "Customer") {
 			return null;
 		}
 
@@ -196,26 +243,28 @@ export default class Bank {
 			return null;
 		}
 
-		// Create the Credit Card, link to account, return instance of card
-		let card = new CreditCard(credit_limit, interest_rate);
-		account.addCard(card);
-		return card;
-	}
+		// Ensure account only has 5 Credit Cards
+		let account = customer.getPrimaryAccount();
 
-	createDebitCard(account, transaction_limit) {
-        // Ensure account only has 5 Debit Cards
 		let counter = 0;
-		for (let i = 0; i < account.getCards().length; i++) {
-			if (account.getCards()[i].constructor.name == 'DebitCard') {
+		for (let i = 0; i < account.cards.length; i++) {
+			if (account.getCards()[i].constructor.name == 'CreditCard') {
 				counter += 1;
 			}
 		}
-        if (counter == 4) {
-            return null;
-        }
+		if (counter == 5) {
+			return null;
+		}
 
+		// Create the Credit Card, link to account, return instance of card
+		let card = new CreditCard(credit_limit, interest_rate);
+		this.addCardToCustomer(customer,card);
+		return card;
+	}
+
+	createDebitCard(customer, transaction_limit) {
 		// Check if the account passed in is an Account object
-		if (typeof account != "object" || account.constructor.name != "Account") {
+		if (typeof customer != "object" || customer.constructor.name != "Customer") {
 			return null;
 		}
 
@@ -224,9 +273,22 @@ export default class Bank {
 			return null;
 		}
 
+		// Ensure account only has 5 Debit Cards
+		let account = customer.getPrimaryAccount();
+
+		let counter = 0;
+		for (let i = 0; i < account.getCards().length; i++) {
+			if (account.getCards()[i].constructor.name == 'DebitCard') {
+				counter += 1;
+			}
+		}
+		if (counter == 4) {
+			return null;
+		}
+
 		// Create the Debit Card, link to account, return instance of card
 		let card = new DebitCard(transaction_limit);
-		account.addCard(card);
+		this.addCardToCustomer(customer,card);
 		return card;
 	}
 
