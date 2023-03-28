@@ -1,0 +1,84 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: formFont;
+    src: url(JejuGothic-Regular.ttf);
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+nav ul{
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+nav a{
+    text-decoration: none;
+    color: white;
+    font-size: 23px;
+    transition: 0.5s;
+  }
+
+nav a:hover{
+    cursor: pointer;
+  }
+
+.butt{
+    display: flex;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 7rem;
+    font-size:22px;
+    color: white;
+    font-family: formFont;
+    background-color: #80ac2f;
+    padding-top:15px;
+    padding-bottom: 15px;
+    border-radius: 8px;
+    border: none;
+    align-items: center;
+    justify-content: center;
+}
+.butt:hover{
+    background-color:#95cf2a;
+}
+
+.container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+}
+.mainText{
+    display:flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    color: white;
+    font-size:35px;
+}
+
+.under{
+    text-decoration: underline;
+    text-underline-position: under;
+    text-decoration-color: #95cf2a;
+}
+
+.under::after{
+    content: "\00a0\00a0\00a0\00a0";
+}
+
+.desc{
+    font-size: 20px;
+}
+
+.cardDesc{
+    color:white;
+    font-size:20px;
+}
