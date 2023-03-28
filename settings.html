@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/css/settings.css">
+    <title>Settings</title>
+</head>
+
+<body>
+    <div class="navStyle">
+        <nav>
+            <div class="logo">
+                <img src="./src/img/logo.png" width="50px"/>
+            </div>
+            <ul>
+                <li><a href="/settings.html">Settings</a></li>
+                <li><a href="/dashboard.html">Dashboard</a></li>
+                <li id="logout"><a href="#">Log Out</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="block-group">
+        <div class="block">
+            <div class="group">
+                <h3>Password Settings</h3><br><br>
+                <form>
+                    <div>
+                        <h4>Password: </h4>
+                        <input type="password" id="cur-password" name="password" placeholder="Enter Password">
+                        <input type="password" id="new-password" name="password" placeholder="Enter New Password">
+                        <input type="password" id="cnew-password" name="password" placeholder="Confirm New Password">
+                        <button type="button" class="button-3" id="updatePassword">Update Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="block-group">
+        <div class="block">
+            <div class="group">
+                <h3>Email Settings</h3><br><br>
+                <form>
+                    <div>
+                        <h4 id="cur-email">Current Email: XXXX@something.com</h4>
+                        <input type="text" id="new-email" name="new-email" placeholder="Enter New Email">
+                        <input type="text" id="cnew-email" name="cnew-email" placeholder="Confirm New Email">
+                        <button type="button" class="button-3" id="updateEmail">Update Email</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="module" src="/src/js/main.js"></script>
+</html>
