@@ -6,9 +6,12 @@ import CreditCard from "./CreditCard.js";
 import runTestCases from "./Test/Test.js";
 
 let bank = new Bank();
-// runTestCases(bank);
+runTestCases(bank);
 
 if (window.location.href.includes("detailedview.html")) {
+	if (sessionStorage.getItem("email") == null) {
+        window.location.href = "login.html";
+    }
     let act = JSON.parse(sessionStorage.getItem("cardToView"));
     document.getElementById("balance").innerHTML = "$" + act.balance;
     document.getElementById("act-num").innerHTML = act.identifier;
@@ -102,13 +105,13 @@ if (window.location.href.includes("signup.html")) {
 }
 
 if (window.location.href.includes("dashboard.html")) {
+	if (sessionStorage.getItem("email") == null) {
+        window.location.href = "login.html";
+    }
+
 	let cust = bank.getCustomerByEmail(sessionStorage.getItem("email"));
 	let acc = cust.getPrimaryAccount();
 	let pCard = acc.getAccessCard();
-
-	if (sessionStorage.getItem("email") == null) {
-		window.location.href = "login.html";
-	}
 
 	document.getElementById("logout").addEventListener("click", function () {
 		sessionStorage.clear();

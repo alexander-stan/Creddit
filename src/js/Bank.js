@@ -75,13 +75,13 @@ export default class Bank {
 		if (card.constructor.name == "DebitCard") {
 			// Set the balance of the card
 			card.setBalance(card.getBalance() + amount);
-			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),amount);
+			// card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),amount);
 			localStorage.setItem('customers', JSON.stringify(this.customers));
 		} else {
 			// Credit Card
 			// Set the balance of the card
 			card.setBalance(card.getBalance() - amount);
-			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),-amount);
+			// card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),-amount);
 			localStorage.setItem('customers', JSON.stringify(this.customers));
 		}
 		return card;
@@ -116,8 +116,8 @@ export default class Bank {
 			}
 
 			// Set the balance of the card
-			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),-amount);
 			card.setBalance(card.getBalance() - amount);
+			// card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),-amount);
 			localStorage.setItem('customers', JSON.stringify(this.customers));
 		} else {
 			// Credit Card
@@ -127,8 +127,8 @@ export default class Bank {
 			}
 
 			// Set the balance of the card
-			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),amount);
 			card.setBalance(card.getBalance() + amount);
+			// card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),amount);
 			localStorage.setItem('customers', JSON.stringify(this.customers));
 		}
 
