@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <link rel = "stylesheet" href="./src/css/sustyle.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+            <title>Creddit Log In page</title>
+    </head>
+    <body>
+        <div class="main">
+            <div class="header">
+                <img class="logo" src="./src/img/logo.png">
+                <div class="alter">
+                    <label class="altermsg">Don't have an account? </label>
+                    <input class="login" type="button" value="Create" id="create-btn">
+                </div>
+            </div>
+            <div class="Sign-up-form">
+                <p class="formHeader">Log In</p>
+                <form id="logIn">
+                    <label for="Email">Email</label>
+                    <input type="text" id="Email" name="Email">
+                    <label for="Pass">Password</label>
+                    <input type="password" id="Pass" name="Pass">
+                    <button type="button" class="create" id="login" >Log In</button>
+                </form>
+
+                <p class="agreement">By logging in to your account, you agree to our <span class="termsColor">Terms</span> and<br>
+                    have read and acknowledge our <span class="termsColor">Global Privacy<br>Statement.</span></p>
+                <div class="captcha">
+                    <p>Invisble reCAPTCHA by <span class="termsColor">Google Privacy Policy</span> and <span class="termsColor">Terms of Use</span></p>
+                </div>
+            </div>
+            <div id="errors" class="Sign-up-form">
+            </div>
+        </div>
+        <script type="module" src="./src/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,252 @@
+import Customer from "./Customer.js";
+import Account from "./Account.js";
+import DebitCard from "./DebitCard.js";
+import CreditCard from "./CreditCard.js";
+
+export default class Bank {
+	constructor() {
+		this.customers = [];
+		this.loadCustomers();
+	}
+
+	// Getter Method(s)
+	getCustomers() {
+		return this.customers;
+	}
+
+	transfer(card1, card2, amount) {
+		// Check if a argument wasn't passed
+		if (card1 == null || card2 == null || amount == null) {
+			return false;
+		}
+
+		// Check if card1 is a Card object (Debit or Credit)
+		if (
+			typeof card1 != "object" ||
+			(card1.constructor.name != "DebitCard" &&
+				card1.constructor.name != "CreditCard")
+		) {
+			return false;
+		}
+
+		// Check if card2 is a Card object (Debit or Credit)
+		if (
+			typeof card2 != "object" ||
+			(card2.constructor.name != "DebitCard" &&
+				card2.constructor.name != "CreditCard")
+		) {
+			return false;
+		}
+
+		// Try the Withdraw operation for card1, Deposit into card2
+		// Deposit should realistically never fail if Withdraw does not
+		if (
+			this.withdraw(card1, amount) == false ||
+			this.deposit(card2, amount) == false
+		) {
+			return false;
+		}
+
+		return true;
+	}
+
+	deposit(card, amount) {
+		// Check if a argument wasn't passed
+		if (card == null || amount == null) {
+			return false;
+		}
+
+		// Check if the card argument is a Card object (Debit or Credit)
+		if (
+			typeof card != "object" ||
+			(card.constructor.name != "DebitCard" &&
+				card.constructor.name != "CreditCard")
+		) {
+			return false;
+		}
+
+		// Check if the number passed is a Integer >= 0
+		if (typeof amount != "number" || amount < 0) {
+			return false;
+		}
+
+		if (card.constructor.name == "DebitCard") {
+			// Set the balance of the card
+			card.setBalance(card.getBalance() + amount);
+			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),amount);
+		} else {
+			// Credit Card
+			// Set the balance of the card
+			card.setBalance(card.getBalance() - amount);
+			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),-amount);
+		}
+		return card;
+	}
+
+	withdraw(card, amount) {
+		// Check if a argument wasn't passed
+		if (card == null || amount == null) {
+			return false;
+		}
+
+		// Check if the card argument is a Card object (Debit or Credit)
+		if (
+			typeof card != "object" ||
+			(card.constructor.name != "DebitCard" &&
+				card.constructor.name != "CreditCard")
+		) {
+			return false;
+		}
+
+		// Check if the number passed is a Integer >= 0
+		if (typeof amount != "number" || amount < 0) {
+			return false;
+		}
+
+		if (card.constructor.name == "DebitCard") {
+			// Ensure the card has funds and the transaction is not past its limit
+			if (card.getBalance() < amount || card.getTransactionLimit() < amount) {
+				return false;
+			}
+
+			// Set the balance of the card
+			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),-amount);
+			card.setBalance(card.getBalance() - amount);
+		} else {
+			// Credit Card
+			// Ensure the card is not being used past its Credit limit
+			if (card.getBalance() + amount > card.getCreditLimit()) {
+				return false;
+			}
+
+			// Set the balance of the card
+			card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),amount);
+			card.setBalance(card.getBalance() + amount);
+		}
+
+		return card;
+	}
+
+	// This function will load existing customers from the DB
+	loadCustomers() {
+		var retrievedCustomers = JSON.parse(localStorage.getItem("customers"));
+		if (retrievedCustomers == null) {
+			return null;
+		} else {
+			for (let i = 0; i < retrievedCustomers.length; i++) {
+				let access_card = new DebitCard();
+				// retrievedCustomers[i].primaryAccount.access_card.identifier
+				access_card.setBalance(retrievedCustomers[i].primaryAccount.access_card.balance);
+                access_card.setIdentifier(retrievedCustomers[i].primaryAccount.access_card.identifier);
+
+				let account = new Account(retrievedCustomers[i].primaryAccount.password,access_card);
+				for (let j = 0; j < retrievedCustomers[i].primaryAccount.cards.length; j++) {
+					console.log("lol");
+				}
+				this.customers.push(new Customer(retrievedCustomers[i].username,retrievedCustomers[i].email,account));
+			}
+		}
+		return this.customers;
+	}
+
+	// Create a brand new Customer Object
+	createCustomer(name, email, password) {
+		// Create Main Card, Account, and Customer (Link them)
+		let card = new DebitCard();
+		let account = new Account(password, card);
+		let customer = new Customer(name, email, account);
+
+		// Push the customer instance to the Customer array
+		this.customers.push(customer);
+
+		// Register the Customer in the Database
+		localStorage.setItem("customers", JSON.stringify(this.customers));
+
+		return customer;
+	}
+
+	createCreditCard(account, credit_limit, interest_rate) {
+        // Ensure account only has 5 Credit Cards
+		let counter = 0;
+		for (let i = 0; i < account.cards.length; i++) {
+			if (account.getCards()[i].constructor.name == 'CreditCard') {
+				counter += 1;
+			}
+		}
+        if (counter == 5) {
+            return null;
+        }
+
+		// Check if the account passed in is an Account object
+		if (typeof account != "object" || account.constructor.name != "Account") {
+			return null;
+		}
+
+		// Check if the credit_limit is a valid Integer > 0
+		if (typeof credit_limit != "number" || credit_limit <= 0) {
+			return null;
+		}
+
+		// Check if the interest_Rate is a valid Float between 0 and 1 exclusively
+		if (
+			typeof interest_rate != "number" ||
+			interest_rate <= 0 ||
+			interest_rate >= 1
+		) {
+			return null;
+		}
+
+		// Create the Credit Card, link to account, return instance of card
+		let card = new CreditCard(credit_limit, interest_rate);
+		account.addCard(card);
+		return card;
+	}
+
+	createDebitCard(account, transaction_limit) {
+        // Ensure account only has 5 Debit Cards
+		let counter = 0;
+		for (let i = 0; i < account.getCards().length; i++) {
+			if (account.getCards()[i].constructor.name == 'DebitCard') {
+				counter += 1;
+			}
+		}
+        if (counter == 4) {
+            return null;
+        }
+
+		// Check if the account passed in is an Account object
+		if (typeof account != "object" || account.constructor.name != "Account") {
+			return null;
+		}
+
+		// Check if the transaction_limit is a valid Integer > 0
+		if (typeof transaction_limit != "number" || transaction_limit <= 0) {
+			return null;
+		}
+
+		// Create the Debit Card, link to account, return instance of card
+		let card = new DebitCard(transaction_limit);
+		account.addCard(card);
+		return card;
+	}
+
+	getCustomerByEmail(email) {
+		// Look for a customer by that email
+		for (let i = 0; i < this.customers.length; i++) {
+			if (this.customers[i].getEmail() == email) {
+				return this.customers[i];
+			}
+		}
+		return null;
+	}
+
+	getAccountByEmail(email) {
+		// Look for a customer by that email and return their account (so we can E-Transfer payment)
+		for (let i = 0; i < this.customers.length; i++) {
+			if (this.customers[i].getEmail() == email) {
+				return this.customers[i].getPrimaryAccount();
+			}
+		}
+		return null;
+	}
+}

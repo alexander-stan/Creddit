@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="dvstyle.css">
+    <link rel="stylesheet" href="/src/css/dvstyle.css">
     <title>Creddit Detailed Account View</title>
     <script>
         function getCurrentDate() {
@@ -28,19 +28,19 @@
     </script>
 </head>
 
-<body style="background-color: #293225;">
-    <div>
+<body style="background-color: #293225">
+    <div class="navStyle">
         <nav>
             <div class="logo">
-                <img src="https://p7.hiclipart.com/preview/1001/743/638/american-bullfrog-red-eyed-tree-frog-frog.jpg"
-                    width="150px">
+                <img src="./src/img/logo.png" width="50px"/>
             </div>
             <ul>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Log Out</a></li>
+                <li><a href="/settings.html">Settings</a></li>
+                <li><a href="/dashboard.html">Dashboard</a></li>
+                <li id="logout"><a href="#">Log Out</a></li>
             </ul>
         </nav>
+    </div>
         <div class="container">
             <div class="view">
                 <div class="header">
@@ -68,42 +68,24 @@
                     document.getElementById("currentDate").textContent = getCurrentDate();
                 </script>
                 <div class="accountDet">
-                    <div class="flexDet">
-                        <p><span class="detail">Account Balance:</span> $XXXXXX
-                        <p>
-                        <p><span class="detail">Avaliable Balance:</span> $XXXXXX
-                        <p>
-                        <p><span class="detail">Funds on hold:</span> $XXXXXX
-                        <p>
-                    </div>
-                    <div class="flexDet">
-                        <p><span class="detail">Account No:</span> XXXX-XXXX-XXX
-                        <p>
-                        <p><span class="detail">Bank Plan</span> Creddit Premium
-                        <p>
-                    </div>
+                    <p>Account Balance: <span id="balance" class="detail"></span></p>
+                    <p>Bank Plan <span class="detail">Creddit Premium</span></p>
+                    <p>Account No: <span id="act-num" class="detail"></span></p>
+                    <p id="debit">Transaction Limit: <span id="trans-limit" class="detail"></span></p>
+                    <p id="credit">Credit Limit: <span id="credit-limit" class="detail"></span></p>
                 </div>
                 <div class="title">Transaction History</div>
                 <div class="tContainer">
                     <span class="tHeader">Date</span>
                     <span class="tHeader">Amount</span>
                 </div>
-                <div class="tContent">
-                    <p>March 23, 2023</p>
-                    <p class="bold">$1000.00CAD</p>
+                <div id="history">
+                    <div id="t-history" class="tContent">
+                    </div>
                 </div>
-                <div class="tContent">
-                    <p>March 25, 2023</p>
-                    <p class="bold">$90.00CAD</p>
-                </div>
-                <div class="tContent">
-                    <p>March 23, 2023</p>
-                    <p class="bold">$1209381.00CAD</p>
-                </div>
-
             </div>
         </div>
     </div>
 </body>
-
+<script type="module" src="./src/js/main.js"></script>
 </html>

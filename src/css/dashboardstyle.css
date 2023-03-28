@@ -1,0 +1,480 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+@font-face {
+	font-family: formFont;
+	src: url(JejuGothic-Regular.ttf);
+}
+
+svg {
+	display: inline-block;
+}
+
+nav {
+	margin: 0px 50px 0px 50px;
+}
+
+.container {
+	display: flex;
+	gap: 3rem;
+	flex-direction: row;
+	min-height: 100%;
+	margin: 50px 50px;
+}
+
+@media screen and (max-width: 1300px) {
+	.container {
+		flex-direction: column;
+	}
+}
+
+.QuickActions {
+	display: flex;
+	flex-direction: column;
+	height: 70%;
+	background-color: #e0e0e0;
+	text-align: center;
+	border-radius: 8px;
+	font-family: formFont;
+}
+
+.header {
+	display: flex;
+	width: 100%;
+	height: 50px;
+	background-color: #c0c0c0;
+	text-align: left;
+	border-radius: 8px;
+	font-family: formFont;
+	box-shadow: 0px 4px 5px #afaeae;
+	justify-content: space-between;
+}
+
+.summary {
+	min-width: 10rem;
+	display: flex;
+	flex-direction: column;
+	height: 70%;
+	background-color: #e0e0e0;
+	text-align: center;
+	border-radius: 8px;
+	gap: 1em;
+	font-family: formFont;
+	padding-bottom: 30px;
+  width: 100vw;
+}
+
+@media screen and (max-width: 1300px) {
+  .summary {
+    width: 100%;
+  }
+
+  .QuickActions {
+    width: 100%;
+  }
+}
+
+.myAccounts {
+	padding: 20px;
+	font-family: formFont;
+	text-align: center;
+	font-size: 19px;
+}
+
+.detAcc{
+  color:black;
+}
+
+.detAcc:hover{
+  color:red;
+}
+
+.tabs {
+  margin: auto;
+  padding: 10px;
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+}
+
+button {
+	/* Variables */
+	--button_radius: 0.75em;
+	--button_color: #e8e8e8;
+	--button_outline_color: #74992e;
+	font-size: 17px;
+	font-weight: bold;
+	border: none;
+	border-radius: var(--button_radius);
+	background: var(--button_outline_color);
+}
+
+.button_top {
+	display: block;
+	box-sizing: border-box;
+	border: 2px solid var(--button_outline_color);
+	border-radius: var(--button_radius);
+	padding: 0.75em 1.5em;
+	background: var(--button_color);
+	color: var(--button_outline_color);
+	transform: translateY(-0.2em);
+	transition: transform 0.1s ease;
+}
+
+button:hover .button_top {
+	/* Pull the button upwards when hovered */
+	cursor: pointer;
+	transform: translateY(-0.33em);
+}
+
+button:active .button_top {
+	/* Push the button downwards when pressed */
+	transform: translateY(0);
+}
+
+.desc {
+	display: flex;
+	margin: 0rem 7rem 0rem 4rem;
+	min-width: 10rem;
+	gap: 1em;
+	text-decoration: underline;
+	text-underline-position: under;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.item2 {
+	margin-left: 1rem;
+}
+
+.creditDisc {
+	margin: 0rem 4rem 0rem 4rem;
+	text-align: right;
+	text-decoration: underline;
+	text-underline-position: under;
+}
+.listOfAccounts {
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	width: 94%;
+	height: 60%;
+	background-color: #d1d1d1;
+	text-align: center;
+	border-radius: 8px;
+	font-family: formFont;
+}
+option:hover {
+	background-color: #74992e;
+}
+
+input[type="text"] {
+	border-radius: 8px;
+	text-align: center;
+	font-size: 15px;
+	padding-left: 5rem;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+	font-family: formFont;
+}
+select {
+	border-radius: 8px;
+	text-align: center;
+	font-size: 15px;
+	padding-left: 5rem;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+	font-family: formFont;
+}
+
+.tabPanel {
+	display: none;
+}
+.form {
+	padding-bottom: 2rem;
+}
+.accountSum {
+	margin: 1rem 0rem 1rem 2rem;
+	text-align: left;
+}
+
+.accountDesc {
+	margin: 1rem 2rem 1rem 2rem;
+	min-width: 10rem;
+	max-width: 100vw;
+	text-align: left;
+	display: flex;
+	flex-direction: row;
+	gap: 1em;
+	justify-content: space-evenly;
+}
+.inputFormat {
+	margin: 1rem 2rem 1rem 2rem;
+	min-width: 10rem;
+	max-width: 100vw;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.QuickPoT {
+	display: flex;
+	flex-direction: column;
+}
+
+.num{
+  padding: 5px 5px;
+
+}
+a {
+	padding: 11px 15px;
+	margin-right: 20px;
+	display: inline-block;
+}
+a svg {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* Style the buttons */
+.btn {
+	font-size: 11px;
+}
+
+/* Style the active class, and buttons on mouse-over */
+.active {
+	background-color: #597e0e;
+	color: white;
+}
+
+.accountFormat {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.summaryHeading {
+	font-size: 18px;
+	align-self: center;
+	margin-left: 1rem;
+}
+
+.QAlabels {
+	padding-right: 20px;
+}
+
+.accountType {
+	display: inline-flex;
+	color: #74992e;
+	font-weight: bold;
+	min-width: 10rem;
+}
+.accountNum {
+	color: black;
+	font-weight: bold;
+	min-width: 10rem;
+  transition: 0.5s;
+}
+.accountNum:hover {
+	color: #93bd45;
+	font-weight: bold;
+	min-width: 10rem;
+}
+.accountBal {
+	color: black;
+	font-weight: bold;
+	min-width: 10rem;
+	text-align: right;
+}
+
+nav {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+nav ul {
+	display: flex;
+	list-style: none;
+	gap: 1rem;
+}
+nav a {
+	text-decoration: none;
+	color: white;
+	font-size: 18px;
+	transition: 0.5s;
+}
+
+nav a:hover {
+	color: rgb(146, 201, 46);
+	cursor: pointer;
+}
+
+.addCard {
+  justify-content: center;
+  background-color: #74992e;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 1rem;
+  height: 50%;
+  padding: 10px;
+  transition: 0.5s;
+}
+.addCard:hover {
+	background-color: #74992e;
+  cursor: pointer;
+}
+
+.addCard {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: #74992e;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+  background: #74992e;
+  color: white;
+}
+
+.addCard, .addCard span {
+  transition: 200ms;
+}
+
+.addCard .text {
+  transform: translateX(35px);
+  color: white;
+  font-weight: bold;
+}
+
+.addCard.icon {
+  position: absolute;
+  border-left: 1px solid #74992e;
+  transform: translateX(110px);
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addCard svg {
+  width: 15px;
+  fill: #eee;
+}
+
+.addCard:hover {
+  background: rgb(149, 195, 65);
+}
+
+.addCard:hover .text {
+  color: transparent;
+}
+
+.addCard:hover .icon {
+  width: 150px;
+  border-left: none;
+  transform: translateX(0);
+}
+
+.addCard:focus {
+  outline: none;
+}
+
+.addCard:active .icon svg {
+  transform: scale(0.8);
+}
+
+.remCard {
+  justify-content: center;
+  background-color: #992e2e;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 1rem;
+  height: 50%;
+  padding: 10px;
+  transition: 0.5s;
+}
+.remCard:hover {
+	background-color: #992e2e;
+  cursor: pointer;
+}
+
+.remCard {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: #992e2e;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+  background: #992e2e;
+  color: white;
+  font-size: 22px;
+}
+
+.remCard, .addCard span {
+  transition: 200ms;
+}
+
+.remCard .text {
+  transform: translateX(35px);
+  color: white;
+  font-weight: bold;
+}
+
+.remCard.icon {
+  position: absolute;
+  border-left: 1px solid #992e2e;
+  transform: translateX(110px);
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remCard svg {
+  width: 15px;
+  fill: #eee;
+}
+
+.remCard:hover {
+  background: #db2727;
+}
+
+.remCard:hover .text {
+	color: transparent;
+}
+
+.remCard:hover .icon {
+  width: 150px;
+  border-left: none;
+  transform: translateX(0);
+}
+
+.remCard:focus {
+  outline: none;
+}
+
+.remCard:active .icon svg {
+  transform: scale(0.8);
+}
+.addRem{
+  display: flex;
+  flex-direction: row;
+}
+
+.navStyle{
+  padding: 1rem;
+  font-size: 12px;
+  background-color: #1d221a
+}
