@@ -18,7 +18,7 @@
                 <p class="formHeader">Create a Creddit Account</p>
                 <form name="SignUp" id="SignUp">
                     <div class="input-row">
-                        <label for="Name">Name</label>
+                        <label for="Name">First Name</label>
                         <input type="text" id="Name" name="Name" >
                         <p id="input-error"></p>
                     </div>
@@ -27,22 +27,18 @@
                         <input type="text" id="Email" name="Email">
                         <div class="input_error"></div>
                     </div>
+ 
                     <div class="input-row">
-                        <label for="Phone">Phone <span style="font-size:12px;color:grey">standard, call, message, or data rates may apply</span></label>
-                        <input type="text" id="Phone" name="Phone">
+                        <label for="Address">Password</label>
+                        <input type="password" id="password1" name="password1">
                         <div class="input_error"></div>
                     </div>
                     <div class="input-row">
-                        <label for="Address">Address</label>
-                        <input type="text" id="Address" name="Address">
+                        <label for="Pass"> Confirm Password</label>
+                        <input type="password" id="password2" name="password2">
                         <div class="input_error"></div>
                     </div>
-                    <div class="input-row">
-                        <label for="Pass">Password</label>
-                        <input type="password" id="Pass" name="Pass">
-                        <div class="input_error"></div>
-                    </div>
-                    <button type="button" onclick="redirect()" class="create">Create Account</button>
+                    <button type="button" onclick="store()" class="create">Create Account</button>
                 </form>
 
                 <p class="agreement">By selecting Create account, you agree to our <span class="termsColor">Terms</span> and<br>
@@ -59,6 +55,55 @@
             function redirect() {
                 window.location.href="redirect.html";
             }
+
+    function store() {
+
+        var name = document.getElementById('Name');
+        var pw1 = document.getElementById('password1');
+        var pw2 = document.getElementById('password2');
+        var email = document.getElementById('Email');
+        var lowerCaseLetters = /[a-z]/g;
+        var upperCaseLetters = /[A-Z]/g;
+        var numbers = /[0-9]/g;
+        var letters = /^[A-Za-z]+$/;
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+        if (name.value.length == 0) {
+            alert('Please fill in Name');
+
+        } else if (!name.value.match(letters)){
+            alert('Name cannot contain numbers');
+
+        } else if (!email.value.match(mailformat)){
+            alert('Invalid Email address');
+        }
+        else if (pw1.value.length == 0) {
+            alert('Please fill in password');
+        } else if (pw1.value.length > 16) {
+            alert('Max of 16');
+
+        } else if (!pw1.value.match(numbers)) {
+            alert('please add 1 number');
+
+        } else if (!pw1.value.match(upperCaseLetters)) {
+            alert('please add 1 uppercase letter');
+
+        } else if (!pw1.value.match(lowerCaseLetters)) {
+            alert('please add 1 lowercase letter');
+
+        } else if (pw2.value.length == 0){
+            alert ('please confirm password');
+        }
+        else if (!(pw1.value === pw2.value)) {
+            alert ('passwords do not match');
+        } 
+        else {
+            localStorage.setItem('name', name.value);
+            localStorage.setItem('pw', pw.value);
+            alert('Your account has been created');
+            redirect();
+        }
+}
         </script>
     </body>
 </html>
