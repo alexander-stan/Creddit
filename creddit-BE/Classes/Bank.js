@@ -92,7 +92,23 @@ export default class Bank {
 
     // This function will load existing customers from the DB
     loadCustomers() {
-        
+        var retrievedCustomers = JSON.parse(localStorage.getItem('customers'))
+        if (retrievedCustomers == null) {
+            return null;
+        } else {
+            for (let i = 0; i < retrievedCustomers.length; i++) {
+                let access_card = new DebitCard(retrievedCustomers[i].primaryAccount.access_card.identifier);
+                access_card.setBalance(retrievedCustomers[i].balance);
+    
+                let account = new Account(retrievedCustomers[i].primaryAccount.password,access_card);
+                for (let j = 0; j < retrievedCustomers[i].primaryAccount.cards.length; j++) {
+                    console.log("lol");
+                }
+    
+                this.createCustomer(retrievedCustomers[i].name, retrievedCustomers[i].email, account);
+            }
+        }
+        console.log(this.customers);
     }
 
     // Create a brand new Customer Object
@@ -106,6 +122,7 @@ export default class Bank {
         this.customers.push(customer);
 
         // Register the Customer in the Database
+        localStorage.setItem('customers', JSON.stringify(this.customers));
 
         return customer;
     }
