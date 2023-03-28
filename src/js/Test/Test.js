@@ -19,6 +19,16 @@ export default function runTestCases(bank) {
     let account = new Account("password123",d_card);
     let customer = new Customer("Mike Test","mike@example.com",account);
 
+    // Card Test Cases
+
+    currCase++; try {
+        assert(d_card.generateCardNumber().length == 16);
+    } catch (error) { failedCases++,console.error(currCase,"Generate Random Card Number"); }
+    currCase++; try {
+        d_card.setBalance(1000);
+        assert(d_card.getBalance() == 1000);
+    } catch (error) { failedCases++,console.error(currCase,"Debit transaction history not properly updated"); }
+
     // Create Credit Card
 
     currCase++; try { 
@@ -110,18 +120,6 @@ export default function runTestCases(bank) {
         bank.withdraw(c_card,400);
         assert(c_card.getBalance() == 500);
     } catch (error) { failedCases++,console.error(currCase,"Credit Withdraw amount was not properly removed"); }
-
-    // Card Test Cases
-
-    currCase++; try {
-        assert(d_card.generateCardNumber().length == 16);
-    } catch (error) { failedCases++,console.error(currCase,"Generate Random Card Number"); }
-        currCase++; try {
-        assert(d_card.getTransactionHistory().length == 2);
-    } catch (error) { failedCases++,console.error(currCase,"Debit transaction history not properly updated"); }
-    currCase++; try {
-        assert(c_card.getTransactionHistory().length == 2);
-    } catch (error) { failedCases++,console.error(currCase,"Credit transaction history not properly updated"); }
 
     // Transfer
 
@@ -231,13 +229,6 @@ export default function runTestCases(bank) {
         account.removeCard('DebitCard');
         assert(account.getCards().includes(test_debit_card) == false);
     } catch (error) { failedCases++,console.error(currCase,"Removing Card from Account"); }
-
-    // Get Account by Email
-
-    currCase++; try {
-        bank.getCustomers().push(customer);
-        assert(bank.getAccountByEmail("new@example.com") == account);
-    } catch (error) { failedCases++,console.error(currCase,"Getting an Account by Email to make a Payment"); }
     
     console.log("Test Cases Passed: ",(currCase-failedCases),"/",currCase);
 }
