@@ -79,7 +79,7 @@ nav a:hover {
 .miniHead{
     align-items: center;
     display: flex;
-    width: 55rem;
+    width: 50%;
     height: 50px;
     background-color: #c0c0c0;
     justify-content: center;
@@ -162,7 +162,7 @@ select {
   .tContainer{
     display: flex;
     flex-direction: row;
-    width: 55rem;
+    width: 100%;
     background-color: #E0E0E0;
     justify-content: space-evenly;
     border-radius: 8px;
@@ -175,7 +175,7 @@ select {
     flex-direction: column;
     padding: 1rem;
     gap: 1.5rem;
-    width: 55rem;
+    width: 91%;
     background-color:#d1d1d1;
     border-radius: 8px;
     font-family: formFont;
