@@ -55,6 +55,7 @@ nav a:hover {
 	justify-content: space-evenly;
 	align-items: center;
 	flex-direction: row;
+	flex-wrap: wrap;
 }
 .mainText {
 	display: flex;
@@ -78,4 +79,5 @@ nav a:hover {
 .desc {
 	font-size: 20px;
 }
+	
 
