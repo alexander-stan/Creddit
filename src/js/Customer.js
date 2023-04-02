@@ -52,25 +52,46 @@ export function signup() {
 	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 	if (name.value.length == 0) {
-		alert("Please fill in Name");
+		name.style.backgroundColor = "#FFD6D6";
 	} else if (!name.value.match(letters)) {
-		alert("Name cannot contain numbers");
+		name.style.backgroundColor = "#FFD6D6";
 	} else if (!email.value.match(mailformat)) {
-		alert("Invalid Email address");
+		name.style.backgroundColor = "white";
+		email.style.backgroundColor = "#FFD6D6";
 	} else if (pw1.value.length == 0) {
-		alert("Please fill in password");
+		name.style.backgroundColor = "white";
+		email.style.backgroundColor = "white";
+		pw1.style.backgroundColor = "#FFD6D6";
 	} else if (pw1.value.length > 16) {
 		alert("Max of 16");
+		name.style.backgroundColor = "white";
+		email.style.backgroundColor = "white";
+		pw1.style.backgroundColor = "#FFD6D6";
 	} else if (!pw1.value.match(numbers)) {
-		alert("please add 1 number");
+		alert("Please add 1 number");
+		name.style.backgroundColor = "white";
+		email.style.backgroundColor = "white";
+		pw1.style.backgroundColor = "#FFD6D6";
 	} else if (!pw1.value.match(upperCaseLetters)) {
-		alert("please add 1 uppercase letter");
+		alert("Please add 1 uppercase letter");
+		name.style.backgroundColor = "white";
+		email.style.backgroundColor = "white";
+		pw1.style.backgroundColor = "#FFD6D6";
 	} else if (!pw1.value.match(lowerCaseLetters)) {
-		alert("please add 1 lowercase letter");
+		alert("Please add 1 lowercase letter");
+		name.style.backgroundColor = "white";
+		email.style.backgroundColor = "white";
+		pw1.style.backgroundColor = "#FFD6D6";
 	} else if (pw2.value.length == 0) {
-		alert("please confirm password");
+		name.style.backgroundColor = "white";
+		email.style.backgroundColor = "white";
+		pw1.style.backgroundColor = "white";
+		pw2.style.backgroundColor = "#FFD6D6";
 	} else if (!(pw1.value === pw2.value)) {
-		alert("passwords do not match");
+		name.style.backgroundColor = "white";
+		email.style.backgroundColor = "white";
+		pw1.style.backgroundColor = "white";
+		pw2.style.backgroundColor = "#FFD6D6";
 	} else {
 		var result = new Bank();
 		result.createCustomer(name.value, email.value, pw1.value);

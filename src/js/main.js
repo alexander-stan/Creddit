@@ -57,11 +57,20 @@ if (window.location.href.includes("settings.html")) {
                 cust.getPrimaryAccount().setPassword(new_password.value);
                 localStorage.setItem("customers", JSON.stringify(bank.getCustomers()));
                 window.location.href = "dashboard.html";
+				document.getElementById("new-password").style.borderColor = "black";
+				document.getElementById("cnew-password").style.borderColor = "black";
+				document.getElementById("cur-password").style.borderColor = "black";
             } else {
                 alert("Passwords do not match");
+				document.getElementById("new-password").style.borderColor = "red";
+				document.getElementById("cnew-password").style.borderColor = "red";
+				document.getElementById("cur-password").style.borderColor = "black";
             }
         } else {
             alert("Incorrect Password");
+			document.getElementById("cur-password").style.borderColor = "red";
+			document.getElementById("new-password").style.borderColor = "black";
+			document.getElementById("cnew-password").style.borderColor = "black";
         }
     });
     document.getElementById('cur-email').innerHTML = "Current Email: " + cust.getEmail();
@@ -71,14 +80,18 @@ if (window.location.href.includes("settings.html")) {
         if (new_email.value == confirm_email.value) {
             if (new_email.value.indexOf("@") == -1 || new_email.value.indexOf(".") == -1) {
                 alert("Invalid Email");
+				document.getElementById("new-email").style.borderColor = "red";
                 return;
             }
             cust.setEmail(new_email.value);
             sessionStorage.setItem("email", new_email.value);
             localStorage.setItem("customers", JSON.stringify(bank.getCustomers()));
             window.location.href = "dashboard.html";
+			document.getElementById("new-email").style.borderColor = "black";
+			document.getElementById("cnew-email").style.borderColor = "black";
         } else {
             alert("Emails do not match");
+			document.getElementById("cnew-email").style.borderColor = "red";
         }
     });
 }
