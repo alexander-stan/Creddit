@@ -41,20 +41,24 @@ export default class Account {
 	getCardByNumber(num) {
 		let accCard = null;
 
+		// Loop over every card in the account and check if the Identifier lines up
 		for (let j = 0; j < this.cards.length; j++) {
 			if (this.cards[j].getIdentifier() == num) {
 				accCard = this.cards[j];
 			}
 		}
 
+		// Also check the Access Card (NOTE: This card is separate from the Card List)
 		if (accCard == null) {
 			if (this.access_card.getIdentifier() == num) {
 				accCard = this.access_card;
 			}
 		}
+
+		// If we found a card return it, else return NULL
 		if (accCard != null) {
 			return accCard;
-		}
+		} 
 		return null;
 	}
 }

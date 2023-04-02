@@ -134,7 +134,29 @@ export default class Bank {
 	}
 
 	loadCard(card) {
-		console.log(card);
+		// If the card doesn't have a Credit Limit, it is a Debit Card
+		if (card.credit_limit == undefined) {
+			let debit = new DebitCard();
+			// Set the all the necessary attributes of the card from the Database
+			debit.setIdentifier(card.identifier);
+			debit.setBalance(card.balance);
+			debit.setTransactionLimit(card.transaction_limit);
+			for (let k = 0; k < card.transaction_history.length; k++) {
+				debit.addTransaction(card.transaction_history[k][0],card.transaction_history[k][1])
+			}
+			return debit;
+		} else { // Else it is a Credit Card
+			let credit = new CreditCard();
+			// Set the all the necessary attributes of the card from the Database
+			credit.setIdentifier(card.identifier);
+			credit.setBalance(card.balance);
+			credit.setCreditLimit(card.credit_limit);
+			credit.setInterestRate(card.interest_rate);
+			for (let k = 0; k < card.transaction_history.length; k++) {
+				credit.addTransaction(card.transaction_history[k][0],card.transaction_history[k][1])
+			}
+			return credit;
+		}
 	}
 
 	// This function will load existing customers from the Database
@@ -143,37 +165,14 @@ export default class Bank {
 		if (retrievedCustomers == null) {
 			return null;
 		} else {
+			// For every every customer in the Database
 			for (let i = 0; i < retrievedCustomers.length; i++) {
-				let access_card = new DebitCard();
-				// retrievedCustomers[i].primaryAccount.access_card.identifier
-				access_card.setBalance(retrievedCustomers[i].primaryAccount.access_card.balance);
-                access_card.setIdentifier(retrievedCustomers[i].primaryAccount.access_card.identifier);
-				for (let k = 0; k < retrievedCustomers[i].primaryAccount.access_card.transaction_history.length; k++) {
-					access_card.addTransaction(retrievedCustomers[i].primaryAccount.access_card.transaction_history[k][0],retrievedCustomers[i].primaryAccount.access_card.transaction_history[k][1])
-				}
+				// Create their Access Card and Account
+				let access_card = this.loadCard(retrievedCustomers[i].primaryAccount.access_card);
 				let account = new Account(retrievedCustomers[i].primaryAccount.password,access_card);
+				// For every Card in the Account in the Database, create and add their Card
 				for (let j = 0; j < retrievedCustomers[i].primaryAccount.cards.length; j++) {
-					this.loadCard(retrievedCustomers[i].primaryAccount.cards[j]);
-					if (retrievedCustomers[i].primaryAccount.cards[j].credit_limit == undefined) {
-						let debit = new DebitCard();
-						debit.setIdentifier(retrievedCustomers[i].primaryAccount.cards[j].identifier);
-						debit.setBalance(retrievedCustomers[i].primaryAccount.cards[j].balance);
-						debit.setTransactionLimit(retrievedCustomers[i].primaryAccount.cards[j].transaction_limit);
-						for (let k = 0; k < retrievedCustomers[i].primaryAccount.cards[j].transaction_history.length; k++) {
-							debit.addTransaction(retrievedCustomers[i].primaryAccount.cards[j].transaction_history[k][0],retrievedCustomers[i].primaryAccount.cards[j].transaction_history[k][1])
-						}
-						account.addCard(debit);
-					} else {
-						let credit = new CreditCard();
-						credit.setIdentifier(retrievedCustomers[i].primaryAccount.cards[j].identifier);
-						credit.setBalance(retrievedCustomers[i].primaryAccount.cards[j].balance);
-						credit.setCreditLimit(retrievedCustomers[i].primaryAccount.cards[j].credit_limit);
-						credit.setInterestRate(retrievedCustomers[i].primaryAccount.cards[j].interest_rate);
-						for (let k = 0; k < retrievedCustomers[i].primaryAccount.cards[j].transaction_history.length; k++) {
-							credit.addTransaction(retrievedCustomers[i].primaryAccount.cards[j].transaction_history[k][0],retrievedCustomers[i].primaryAccount.cards[j].transaction_history[k][1])
-						}
-						account.addCard(credit);
-					}
+					account.addCard(this.loadCard(retrievedCustomers[i].primaryAccount.cards[j]));
 				}
 				this.customers.push(new Customer(retrievedCustomers[i].username,retrievedCustomers[i].email,account));
 			}
