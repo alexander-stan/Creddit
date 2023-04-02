@@ -62,7 +62,7 @@ nav a:hover {
 	justify-content: space-evenly;
 	flex-direction: column;
 	color: white;
-	font-size: 35px;
+	font-size: 45px;
 	font-family: formFont;
 }
 
@@ -77,7 +77,7 @@ nav a:hover {
 }
 
 .desc {
-	font-size: 20px;
+	font-size: 30px;
 }
 	
 
