@@ -33,20 +33,9 @@ export default class Card {
 		this.identifier = identifier;
 	}
 
-	addTransaction(customer,transaction) {
+	addTransaction(transaction,date) {
 		// store data as March 23, 2020 @ 12:00:00 AM
-		this.transaction_history.push([transaction, new Date().toLocaleString()]);
-		// set the local storage to the new transaction history at customers[] > email > primaryAccount > access_card > transaction_history
-		for (let i = 0; i < JSON.parse(localStorage.getItem('customers')).length; i++) {
-			let customerSearch = JSON.parse(localStorage.getItem('customers'))[i];
-			if (customerSearch.email == customer.getEmail()) {
-				customerSearch.primaryAccount.access_card.transaction_history = this.transaction_history;
-				let customers = JSON.parse(localStorage.getItem('customers'));
-				customers[i] = customerSearch;
-				localStorage.setItem('customers', JSON.stringify(customers));
-				break;
-			}
-		}
+		this.transaction_history.push([transaction, date]);
 	}
 
 	generateCardNumber() {

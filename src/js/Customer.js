@@ -1,5 +1,3 @@
-import Account from "./Account.js";
-import DebitCard from "./DebitCard.js";
 import Bank from "./Bank.js";
 
 export default class Customer {

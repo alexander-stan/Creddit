@@ -75,13 +75,13 @@ export default class Bank {
 		if (card.constructor.name == "DebitCard") {
 			// Set the balance of the card
 			card.setBalance(card.getBalance() + amount);
-			// card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),amount);
+			card.addTransaction(amount,new Date().toLocaleString());
 			localStorage.setItem('customers', JSON.stringify(this.customers));
 		} else {
 			// Credit Card
 			// Set the balance of the card
 			card.setBalance(card.getBalance() - amount);
-			// card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),-amount);
+			card.addTransaction(-amount,new Date().toLocaleString());
 			localStorage.setItem('customers', JSON.stringify(this.customers));
 		}
 		return card;
@@ -114,10 +114,9 @@ export default class Bank {
 			if (card.getBalance() < amount || card.getTransactionLimit() < amount) {
 				return false;
 			}
-
 			// Set the balance of the card
 			card.setBalance(card.getBalance() - amount);
-			// card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),-amount);
+			card.addTransaction(-amount,new Date().toLocaleString());
 			localStorage.setItem('customers', JSON.stringify(this.customers));
 		} else {
 			// Credit Card
@@ -125,17 +124,20 @@ export default class Bank {
 			if (card.getBalance() + amount > card.getCreditLimit()) {
 				return false;
 			}
-
 			// Set the balance of the card
 			card.setBalance(card.getBalance() + amount);
-			// card.addTransaction(this.getCustomerByEmail(sessionStorage.getItem('email')),amount);
+			card.addTransaction(amount,new Date().toLocaleString());
 			localStorage.setItem('customers', JSON.stringify(this.customers));
 		}
 
 		return card;
 	}
 
-	// This function will load existing customers from the DB
+	loadCard(card) {
+		console.log(card);
+	}
+
+	// This function will load existing customers from the Database
 	loadCustomers() {
 		var retrievedCustomers = JSON.parse(localStorage.getItem("customers"));
 		if (retrievedCustomers == null) {
@@ -146,14 +148,20 @@ export default class Bank {
 				// retrievedCustomers[i].primaryAccount.access_card.identifier
 				access_card.setBalance(retrievedCustomers[i].primaryAccount.access_card.balance);
                 access_card.setIdentifier(retrievedCustomers[i].primaryAccount.access_card.identifier);
-
+				for (let k = 0; k < retrievedCustomers[i].primaryAccount.access_card.transaction_history.length; k++) {
+					access_card.addTransaction(retrievedCustomers[i].primaryAccount.access_card.transaction_history[k][0],retrievedCustomers[i].primaryAccount.access_card.transaction_history[k][1])
+				}
 				let account = new Account(retrievedCustomers[i].primaryAccount.password,access_card);
 				for (let j = 0; j < retrievedCustomers[i].primaryAccount.cards.length; j++) {
+					this.loadCard(retrievedCustomers[i].primaryAccount.cards[j]);
 					if (retrievedCustomers[i].primaryAccount.cards[j].credit_limit == undefined) {
 						let debit = new DebitCard();
 						debit.setIdentifier(retrievedCustomers[i].primaryAccount.cards[j].identifier);
 						debit.setBalance(retrievedCustomers[i].primaryAccount.cards[j].balance);
 						debit.setTransactionLimit(retrievedCustomers[i].primaryAccount.cards[j].transaction_limit);
+						for (let k = 0; k < retrievedCustomers[i].primaryAccount.cards[j].transaction_history.length; k++) {
+							debit.addTransaction(retrievedCustomers[i].primaryAccount.cards[j].transaction_history[k][0],retrievedCustomers[i].primaryAccount.cards[j].transaction_history[k][1])
+						}
 						account.addCard(debit);
 					} else {
 						let credit = new CreditCard();
@@ -161,6 +169,9 @@ export default class Bank {
 						credit.setBalance(retrievedCustomers[i].primaryAccount.cards[j].balance);
 						credit.setCreditLimit(retrievedCustomers[i].primaryAccount.cards[j].credit_limit);
 						credit.setInterestRate(retrievedCustomers[i].primaryAccount.cards[j].interest_rate);
+						for (let k = 0; k < retrievedCustomers[i].primaryAccount.cards[j].transaction_history.length; k++) {
+							credit.addTransaction(retrievedCustomers[i].primaryAccount.cards[j].transaction_history[k][0],retrievedCustomers[i].primaryAccount.cards[j].transaction_history[k][1])
+						}
 						account.addCard(credit);
 					}
 				}

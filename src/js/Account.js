@@ -1,5 +1,3 @@
-import DebitCard from "./DebitCard.js";
-
 export default class Account {
 	constructor(password, card) {
 		this.access_card = card;

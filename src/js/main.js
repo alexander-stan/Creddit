@@ -26,11 +26,12 @@ if (window.location.href.includes("detailedview.html")) {
     if (trans_history.length == 0) {
         document.getElementById("t-history").innerHTML = "No transaction history to display";
     } else {
-        for (let i = 0; i < trans_history.length; i++) {
+        for (let i = trans_history.length-1; i > -1; i--) {
 			let row = document.createElement("div");
 			row.classList.add("row");
 			let date = document.createElement("p");
 			// convert date to March 23, 2020 @ 12:00:00 AM
+			console.log(trans_history);
 			date.innerHTML = trans_history[i][1].split(',').join(' @');
 			let amount = document.createElement("p");
 			amount.classList.add("bold");
