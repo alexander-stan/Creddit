@@ -191,25 +191,30 @@ if (window.location.href.includes("dashboard.html")) {
 			document.getElementById("PaymentFromAccount").style.borderColor = "black";
 		}
 
-		let accCard = acc.getCardByNumber(paccount);
-		let cust = bank.getCustomerByEmail(email);
-		let payee = cust.getPrimaryAccount();
-
-		if (payee != null) {
-			let pCard = payee.getAccessCard();
-			bank.transfer(accCard, pCard, parseFloat(amount));
-			
-			var reg = /^[0-9]+([.][0-9]+)?([0-9]+)?$/;
-			if (amount.match(reg)){
-				document.getElementById("Amount1").style.borderColor = "black";
-			}
-			else{
-				document.getElementById("Amount1").style.borderColor = "red";
-			}
+		var reg = /^[0-9]+([.][0-9]+)?([0-9]+)?$/;
+		if (amount.match(reg)){
+			document.getElementById("Amount1").style.borderColor = "black";
+		}
+		else{
+			document.getElementById("Amount1").style.borderColor = "red";
 		}
 
-		updateDebit(pCard, acc);
-		updateCredit(acc);
+		let accCard = acc.getCardByNumber(paccount);
+		let cust = bank.getCustomerByEmail(email);
+
+		if (cust != null) {
+			let payee = cust.getPrimaryAccount();
+
+			if (payee != null) {
+				let pCard = payee.getAccessCard();
+				bank.transfer(accCard, pCard, parseFloat(amount));
+			}
+
+			updateDebit(pCard, acc);
+			updateCredit(acc);
+		} else {
+			document.getElementById("Email").style.borderColor = "red";
+		}
 	});
 
 	var form2 = document.getElementById("makeTransfer");
@@ -244,7 +249,7 @@ if (window.location.href.includes("dashboard.html")) {
 		let payee = acc.getCardByNumber(toAccount);
 
 		var reg = /^[0-9]+([.][0-9]+)?([0-9]+)?$/;
-		if (amount.match(reg)){
+		if (amount.match(reg)) {
 			bank.transfer(accCard, payee, parseFloat(amount));
 			document.getElementById("Amount2").style.borderColor = "black";
 		}
@@ -280,8 +285,11 @@ if (window.location.href.includes("dashboard.html")) {
 
 		var reg = /^[0-9]+([.][0-9]+)?([0-9]+)?$/;
 		if (amount.match(reg)){
-			bank.withdraw(accCard, parseFloat(amount));
-			document.getElementById("Amount3").style.borderColor = "black";
+			if (bank.withdraw(accCard, parseFloat(amount))) {
+				document.getElementById("Amount3").style.borderColor = "black";
+			} else {
+				document.getElementById("Amount3").style.borderColor = "red";
+			}
 		}
 		else{
 			document.getElementById("Amount3").style.borderColor = "red";

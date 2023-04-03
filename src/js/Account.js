@@ -31,8 +31,11 @@ export default class Account {
 	removeCard(type) {
 		for (let i = this.cards.length-1; i >= 0; i--) {
 			if (this.cards[i].constructor.name == type) {
-				this.cards.splice(i, 1);
-				return true;
+				if (this.cards[i].getBalance() == 0) {
+					this.cards.splice(i, 1);
+					return true;
+				}
+				return false;
 			}
 		}
 		return false;
