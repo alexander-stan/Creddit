@@ -54,12 +54,40 @@ if (window.location.href.includes("settings.html")) {
     document.getElementById("updatePassword").addEventListener("click", function () {
         if (cur_password.value == cust.getPrimaryAccount().getPassword()) {
             if (new_password.value == confirm_password.value) {
-                cust.getPrimaryAccount().setPassword(new_password.value);
-                localStorage.setItem("customers", JSON.stringify(bank.getCustomers()));
-                window.location.href = "dashboard.html";
-				document.getElementById("new-password").style.borderColor = "black";
-				document.getElementById("cnew-password").style.borderColor = "black";
-				document.getElementById("cur-password").style.borderColor = "black";
+				var lowerCaseLetters = /[a-z]/g;
+				var upperCaseLetters = /[A-Z]/g;
+				var numbers = /[0-9]/g;
+				var letters = /^[A-Za-z]+$/;
+				var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+				if (new_password.length == 0) {
+					document.getElementById("new-password").style.borderColor = "red";
+				}
+				else if (!new_password.value.match(numbers)) {
+					alert("Please add 1 number");
+					document.getElementById("new-password").style.borderColor = "red";
+				}
+				else if (new_password.length > 16) {
+					alert("max of 16");
+					document.getElementById("new-password").style.borderColor = "red";
+				}
+				else if (!new_password.value.match(upperCaseLetters)){
+					alert("Please add 1 uppercase letter");
+					document.getElementById("new-password").style.borderColor = "red";
+				}
+				else if (!new_password.value.match(lowerCaseLetters)){
+					alert("Please add 1 lowercase letter");
+					document.getElementById("new-password").style.borderColor = "red";
+				}
+				else{
+					cust.getPrimaryAccount().setPassword(new_password.value);
+					localStorage.setItem("customers", JSON.stringify(bank.getCustomers()));
+					window.location.href = "dashboard.html";
+					document.getElementById("new-password").style.borderColor = "black";
+					document.getElementById("cnew-password").style.borderColor = "black";
+					document.getElementById("cur-password").style.borderColor = "black";
+
+				}
             } else {
                 alert("Passwords do not match");
 				document.getElementById("new-password").style.borderColor = "red";
